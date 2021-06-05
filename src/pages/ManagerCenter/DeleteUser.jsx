@@ -33,7 +33,7 @@ export default class DeleteUser extends React.Component {
           >
             <Button style={{ width: 200 }} type="primary" shape="round" size='large'>
               删除
-                                    </Button>
+            </Button>
           </Popconfirm>
         </Form.Item>
         <br /><br /><br /><br /><br /><br /><br />

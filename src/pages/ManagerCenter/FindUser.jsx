@@ -25,54 +25,20 @@ export default class ChangeUser extends React.Component {
         <Form.Item label="目标账号" {...formItemLayout}>
           <Input></Input>
         </Form.Item>
-        <br /><br /><br />
-
-        <Form.Item {...formItemLayout} label="所修改内容">
-        </Form.Item>
-
-        <Form.Item {...formItemLayout} label="账号类型">
+        <Form.Item {...formItemLayout} label="目标账号类型">
           <Select defaultValue="student" onChange={handleChange}>
             <Option value="teacher">教师</Option>
             <Option value="student">学生</Option>
             <Option value="manager">管理员</Option>
           </Select>
         </Form.Item>
-
-        <Form.Item label="姓名" {...formItemLayout}>
-          <Input></Input>
-        </Form.Item>
-
-        <Form.Item label="性别" {...formItemLayout}>
-          <Input></Input>
-        </Form.Item>
-
-        <Form.Item label="身份证号" {...formItemLayout}>
-          <Input></Input>
-        </Form.Item>
-
-        <Form.Item label="班级" {...formItemLayout}>
-          <Input></Input>
-        </Form.Item>
-
-        <Form.Item label="专业" {...formItemLayout}>
-          <Input></Input>
-        </Form.Item>
-        
-        <Form.Item>
-          <Popconfirm
-            title="您确定修改的信息无误吗"
-            onConfirm={confirm}
-            onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button style={{ width: 200 }} type="primary" shape="round" size='large'>
-              修改
+        <br/>
+        <Button style={{ width: 200 }} type="primary" shape="round" size='large'>
+              查找用户信息
             </Button>
-          </Popconfirm>
-        </Form.Item>
-
-
+        <br/>
+        
+        
         <br /><br /><br /><br /><br /><br /><br /><br /><br />
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         <br />

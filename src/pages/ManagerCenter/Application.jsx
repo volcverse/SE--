@@ -3,6 +3,8 @@ import React from 'react';
 import {
   FileTextOutlined,
 } from '@ant-design/icons';
+import { Link } from 'react-router-dom'
+import AdmChangePSW from './AdmChangePSW'
 
 
 const data = [
@@ -11,9 +13,6 @@ const data = [
   },
   {
     title: '李四退学申请',
-  },
-  {
-    title: '王五微积分班级成绩修改申请',
   },
   {
     title: '赵四教师转系申请',
@@ -36,7 +35,9 @@ export default class Application extends React.Component {
                 title={item.title}
                 description="XXXXXXX"
               />
-              <Button>详情</Button>
+              <Button>详情
+                <Link to="/AdmChangePSW"></Link>
+              </Button>
             </List.Item>
           )}
         />

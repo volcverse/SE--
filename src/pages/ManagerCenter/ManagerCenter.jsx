@@ -12,6 +12,10 @@ import AddUser from './AddUser'
 import DeleteUser from './DeleteUser'
 import ChangeUser from './ChangeUser'
 import Application from './Application'
+import AdmChangePSW from './AdmChangePSW'
+import FindUser from './FindUser'
+import ChangeAdmInfo from './ChangeAdmInfo'
+import ApplicationDetail from './ApplicationDetail'
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -29,13 +33,11 @@ class ManagerCenter extends React.Component {
             left: 0,
           }}
         >
-
-
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['m1']}>
             <Menu.Item key="m1" icon={<UserOutlined />}>
               个人中心
-              <Link to="/ManagerInfo"></Link>
+              <Link to="/AdmChangePSW"></Link>
             </Menu.Item>
             <SubMenu key="userinfo" icon={<TeamOutlined />} title="用户操作">
               <Menu.Item key="1">新增用户
@@ -46,6 +48,9 @@ class ManagerCenter extends React.Component {
               </Menu.Item>
               <Menu.Item key="3">修改用户
               <Link to="/ChangeUser"></Link>
+              </Menu.Item>
+              <Menu.Item key="3">查找用户
+              <Link to="/FindUser"></Link>
               </Menu.Item>
             </SubMenu>
             <Menu.Item key="m4" icon={<FileTextOutlined />}>
@@ -67,7 +72,9 @@ class ManagerCenter extends React.Component {
               <Route path="/AddUser" component={AddUser}></Route>
               <Route path="/DeleteUser" component={DeleteUser}></Route>
               <Route path="/ChangeUser" component={ChangeUser}></Route>
+              <Route path="/FindUser" component={FindUser}></Route>
               <Route path="/Application" component={Application}></Route>
+              <Route path="/AdmChangePSW" component={AdmChangePSW}></Route>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
