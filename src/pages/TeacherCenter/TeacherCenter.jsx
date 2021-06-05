@@ -1,21 +1,28 @@
 import { Layout, Menu, Descriptions, Button } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router'
-import { Image } from 'antd';
+import { Link,Route } from 'react-router-dom'
+import TeacherInfo from './TeacherInfo'
+import TApplication from './TApplication'
+import MyApplication from './MyApplication'
+import AddLesson from './AddLesson'
+import EditLesson from './EditLesson'
+import MyClass from './MyClass'
+import FindCourse from './FindCourse'
 import {
   AppstoreOutlined,
   BarChartOutlined,
-  CloudOutlined,
+  FileTextOutlined,
   SmileOutlined,
   TeamOutlined,
   UserOutlined,
   HighlightOutlined,
   BookOutlined,
-  VideoCameraOutlined,
+  CloudOutlined,
 } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
 
 class TeacherCenter extends React.Component {
   render() {
@@ -33,10 +40,16 @@ class TeacherCenter extends React.Component {
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1" icon={<UserOutlined />}>
               个人中心
+              <Link to="/TeacherInfo"></Link>
           </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              课程资源
-          </Menu.Item>
+          <SubMenu key="lesson" icon={<FileTextOutlined />} title="课程操作">
+              <Menu.Item key="l0">我的课程
+              <Link to="/MyClass"></Link>
+              </Menu.Item>
+              <Menu.Item key="l1">开课
+              <Link to="/AddLesson"></Link>
+              </Menu.Item>
+            </SubMenu>
             <Menu.Item key="3" icon={<HighlightOutlined />}>
               在线测验
           </Menu.Item>
@@ -48,8 +61,13 @@ class TeacherCenter extends React.Component {
           </Menu.Item>
             <Menu.Item key="6" icon={<TeamOutlined />}>
               相关申请
+              <Link to="./TApplication"></Link>
           </Menu.Item>
-            <Menu.Item key="8" icon={<SmileOutlined />}>
+          <Menu.Item key="8" icon={<CloudOutlined />}>
+              课程搜索
+              <Link to="/FindCourse"></Link>
+          </Menu.Item>
+            <Menu.Item key="9" icon={<SmileOutlined />}>
               个人资源
           </Menu.Item>
 
@@ -63,31 +81,11 @@ class TeacherCenter extends React.Component {
           </Header>
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
             <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
-            
-              <Image
-                width={200}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              />
-              <br /><br />
-              <Button>
-                编辑信息
-            </Button>
-            
-            <Button style={{ marginLeft: 20 }}>
-                修改密码
-            </Button>
-              <br /><br />
-              <Descriptions title="教师信息">
-                <Descriptions.Item label="姓名">李四</Descriptions.Item>
-                <Descriptions.Item label="工号">Txxxxxxxx</Descriptions.Item>
-                <Descriptions.Item label="身份证号">123456789XXXXX</Descriptions.Item>
-                <Descriptions.Item label="系/部门">计算机</Descriptions.Item>
-              </Descriptions>
-              <br /><br /><br /><br /><br /><br /><br /><br /><br />
-              <br /><br /><br /><br /><br /><br /><br /><br /><br />
-              <br /><br /><br /><br /><br /><br /><br /><br /><br />
-              <br /><br /><br /><br /><br /><br />
-
+              <Route path="/TeacherInfo" component={TeacherInfo}></Route>
+              <Route path="/TApplication" component={TApplication}></Route>
+              <Route path="/MyClass" component={MyClass}></Route>
+              <Route path="/AddLesson" component={AddLesson}></Route>
+              <Route path="/FindCourse" component={FindCourse}></Route>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
