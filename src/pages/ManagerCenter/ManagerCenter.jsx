@@ -5,6 +5,7 @@ import {
   TeamOutlined,
   UserOutlined,
   FileTextOutlined,
+  CloudOutlined,
 } from '@ant-design/icons';
 
 import ManagerInfo from './ManagerInfo'
@@ -15,6 +16,7 @@ import Application from './Application'
 import AdmChangePSW from './AdmChangePSW'
 import FindUser from './FindUser'
 import ChangeAdmInfo from './ChangeAdmInfo'
+import FindCourse from './FindCourse'
 import ApplicationDetail from './ApplicationDetail'
 
 
@@ -37,7 +39,7 @@ class ManagerCenter extends React.Component {
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['m1']}>
             <Menu.Item key="m1" icon={<UserOutlined />}>
               个人中心
-              <Link to="/AdmChangePSW"></Link>
+              <Link to="/ManagerInfo"></Link>
             </Menu.Item>
             <SubMenu key="userinfo" icon={<TeamOutlined />} title="用户操作">
               <Menu.Item key="1">新增用户
@@ -49,13 +51,17 @@ class ManagerCenter extends React.Component {
               <Menu.Item key="3">修改用户
               <Link to="/ChangeUser"></Link>
               </Menu.Item>
-              <Menu.Item key="3">查找用户
+              <Menu.Item key="4">查找用户
               <Link to="/FindUser"></Link>
               </Menu.Item>
             </SubMenu>
             <Menu.Item key="m4" icon={<FileTextOutlined />}>
               申请处理
               <Link to="/Application"></Link>
+          </Menu.Item>
+          <Menu.Item key="5" icon={<CloudOutlined />}>
+              课程搜索
+              <Link to="/FindCourse"></Link>
           </Menu.Item>
 
           </Menu>
@@ -73,8 +79,10 @@ class ManagerCenter extends React.Component {
               <Route path="/DeleteUser" component={DeleteUser}></Route>
               <Route path="/ChangeUser" component={ChangeUser}></Route>
               <Route path="/FindUser" component={FindUser}></Route>
-              <Route path="/Application" component={Application}></Route>
+              <Route path="/Application" component={ApplicationDetail}></Route>
               <Route path="/AdmChangePSW" component={AdmChangePSW}></Route>
+              <Route path="/ChangeAdmInfo" component={ChangeAdmInfo}></Route>
+              <Route path="/FindCourse" component={FindCourse}></Route>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
