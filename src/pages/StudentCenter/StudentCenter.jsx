@@ -1,8 +1,11 @@
 import { Layout, Menu, Descriptions, Button } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router'
-import { Image } from 'antd';
+import { Link, Route } from 'react-router-dom'
+import StudentInfo from './StudentInfo'
+import SApplication from './SApplication'
+import MyApplication from './MyApplication'
+import FindCourse from './FindCourse'
 import {
   AppstoreOutlined,
   BarChartOutlined,
@@ -34,6 +37,7 @@ class StudentCenter extends React.Component {
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1" icon={<UserOutlined />}>
               个人中心
+              <Link to="/StudentInfo"></Link>
           </Menu.Item>
             <Menu.Item key="2" icon={<VideoCameraOutlined />}>
               课程资源
@@ -52,8 +56,13 @@ class StudentCenter extends React.Component {
           </Menu.Item>
             <Menu.Item key="7" icon={<TeamOutlined />}>
               相关申请
+              <Link to="/MyApplication"></Link>
           </Menu.Item>
-            <Menu.Item key="8" icon={<SmileOutlined />}>
+          <Menu.Item key="8" icon={<CloudOutlined />}>
+              课程搜索
+              <Link to="/FindCourse"></Link>
+          </Menu.Item>
+            <Menu.Item key="9" icon={<SmileOutlined />}>
               个人资源
           </Menu.Item>
 
@@ -67,32 +76,9 @@ class StudentCenter extends React.Component {
           </Header>
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
             <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
-            
-              <Image
-                width={200}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              />
-              <br /><br />
-              <Button>
-                编辑信息
-            </Button>
-            
-            <Button style={{ marginLeft: 20 }}>
-                修改密码
-            </Button>
-              <br /><br />
-              <Descriptions title="学生信息">
-                <Descriptions.Item label="姓名">张三</Descriptions.Item>
-                <Descriptions.Item label="学号">319010xxxx</Descriptions.Item>
-                <Descriptions.Item label="身份证号">123456789XXXXX</Descriptions.Item>
-                <Descriptions.Item label="班级">软工1901</Descriptions.Item>
-                <Descriptions.Item label="总学分">xx</Descriptions.Item>
-                <Descriptions.Item label="GPA">5.0</Descriptions.Item>
-              </Descriptions>
-              <br /><br /><br /><br /><br /><br /><br /><br /><br />
-              <br /><br /><br /><br /><br /><br /><br /><br /><br />
-              <br /><br /><br /><br /><br /><br /><br /><br /><br />
-              <br /><br /><br /><br /><br /><br />
+              <Route path="/StudentInfo" component={StudentInfo}></Route>
+              <Route path="/MyApplication" component={MyApplication}></Route>
+              <Route path="/FindCourse" component={FindCourse}></Route>
 
             </div>
           </Content>
