@@ -1,5 +1,4 @@
 import { Input, Button, Form } from 'antd';
-import { Popconfirm, message } from 'antd';
 import React from 'react';
 import { Select } from 'antd';
 const { Option } = Select;
@@ -51,14 +50,4 @@ export default class FindCourse extends React.Component {
 
 function handleChange(value) {
   console.log(`selected ${value}`);
-}
-
-function confirm(e) {
-  console.log(e);
-  message.success('操作确认');
-}
-
-function cancel(e) {
-  console.log(e);
-  message.error('操作取消');
 }

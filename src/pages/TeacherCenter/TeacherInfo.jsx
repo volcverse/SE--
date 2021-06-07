@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Descriptions, Button } from 'antd';
 import { Image } from 'antd';
+import { Link } from 'react-router-dom'
 
 export default class StudentInfo extends Component {
   render() {
@@ -11,13 +12,17 @@ export default class StudentInfo extends Component {
           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
         />
         <br /><br />
-        <Button>
-          编辑信息
-            </Button>
-        <Button style={{ marginLeft: 20 }}>
-          修改密码
-          
-        </Button>
+        <Link to="/TeacherCenter/ChangeTeaInfo">
+          <Button>
+            编辑信息
+          </Button>
+        </Link>
+
+        <Link to="/TeacherCenter/TeaChangePSW">
+          <Button style={{ marginLeft: 20 }}>
+           修改密码
+          </Button>
+        </Link>
         <br /><br />
         <Descriptions title="教师信息">
             <Descriptions.Item label="姓名">李四</Descriptions.Item>

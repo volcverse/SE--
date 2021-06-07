@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Space } from 'antd';
 import { Popconfirm, message } from 'antd';
+import { Link } from 'react-router-dom'
 
 const columns = [
     {
@@ -29,7 +30,9 @@ const columns = [
         key: 'action',
         render: (text, record) => (
             <Space size="middle">
-                <a>编辑信息</a>
+                <Link to="/TeacherCenter/EditLesson">
+                    <a>编辑信息</a>
+                </Link>
                 <a>资源管理</a>
                 <Popconfirm
                     title="您确定要删除此课程吗"
@@ -88,10 +91,9 @@ export default class MyClass extends Component {
 function confirm(e) {
     console.log(e);
     message.success('操作确认');
-  }
-  
-  function cancel(e) {
+}
+
+function cancel(e) {
     console.log(e);
     message.error('操作取消');
-  }
-  
+}
