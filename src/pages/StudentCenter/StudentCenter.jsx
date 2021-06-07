@@ -1,13 +1,13 @@
-import { Layout, Menu, Descriptions, Button } from 'antd';
+import { Layout, Menu } from 'antd';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Link, Route } from 'react-router-dom'
+import { Link, Route, Redirect, Switch } from 'react-router-dom'
 import StudentInfo from './StudentInfo'
 import SApplication from './SApplication'
 import MyApplication from './MyApplication'
 import FindCourse from './FindCourse'
+import ChangeStuInfo from './ChangeStuInfo'
+import StuChangePSW from './StuChangePSW'
 import {
-  AppstoreOutlined,
   BarChartOutlined,
   CloudOutlined,
   SmileOutlined,
@@ -37,8 +37,8 @@ class StudentCenter extends React.Component {
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1" icon={<UserOutlined />}>
               个人中心
-              <Link to="/StudentInfo"></Link>
-          </Menu.Item>
+              <Link to="/StudentCenter/StudentInfo"></Link>
+            </Menu.Item>
             <Menu.Item key="2" icon={<VideoCameraOutlined />}>
               课程资源
           </Menu.Item>
@@ -56,12 +56,12 @@ class StudentCenter extends React.Component {
           </Menu.Item>
             <Menu.Item key="7" icon={<TeamOutlined />}>
               相关申请
-              <Link to="/MyApplication"></Link>
-          </Menu.Item>
-          <Menu.Item key="8" icon={<CloudOutlined />}>
+              <Link to="/StudentCenter/SApplication"></Link>
+            </Menu.Item>
+            <Menu.Item key="8" icon={<CloudOutlined />}>
               课程搜索
-              <Link to="/FindCourse"></Link>
-          </Menu.Item>
+              <Link to="/StudentCenter/FindCourse"></Link>
+            </Menu.Item>
             <Menu.Item key="9" icon={<SmileOutlined />}>
               个人资源
           </Menu.Item>
@@ -76,10 +76,15 @@ class StudentCenter extends React.Component {
           </Header>
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
             <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
-              <Route path="/StudentInfo" component={StudentInfo}></Route>
-              <Route path="/MyApplication" component={MyApplication}></Route>
-              <Route path="/FindCourse" component={FindCourse}></Route>
-
+              <Switch>
+                <Route path="/StudentCenter/StudentInfo" component={StudentInfo}></Route>
+                <Route path="/StudentCenter/SApplication" component={SApplication}></Route>
+                <Route path="/StudentCenter/MyApplication" component={MyApplication}></Route>
+                <Route path="/StudentCenter/FindCourse" component={FindCourse}></Route>
+                <Route path="/StudentCenter/StuChangePSW" component={StuChangePSW}></Route>
+                <Route path="/StudentCenter/ChangeStuInfo" component={ChangeStuInfo}></Route>
+                <Redirect to="/StudentCenter/StudentInfo"></Redirect>
+              </Switch>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>

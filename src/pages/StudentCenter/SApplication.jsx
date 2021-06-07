@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Input, Select, Form, Button } from 'antd'
-import { Popconfirm, message } from 'antd';
+import { Popconfirm, message } from 'antd'
+import { Link } from 'react-router-dom'
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -42,7 +43,9 @@ export default class SApplication extends Component {
                 >
                     <Button type="primary">提交申请</Button>
                 </Popconfirm>
-                <Button type="primary" style={{ marginLeft: 20 }}>我的申请</Button>
+                <Link to="/StudentCenter/MyApplication">
+                    <Button type="primary" style={{ marginLeft: 20 }}>我的申请</Button>
+                </Link>
                 <br /><br /><br /><br /><br /><br /><br /><br /><br />
                 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </div>
