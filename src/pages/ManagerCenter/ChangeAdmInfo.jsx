@@ -30,6 +30,15 @@ export default class ChangeAdmInfo extends React.Component {
                     <Input></Input>
                 </Form.Item>
 
+                <Form.Item label="联系方式" {...formItemLayout}>
+                    <Input></Input>
+                </Form.Item>
+
+                <Form.Item>
+                    <Button>照片上传</Button>
+                </Form.Item>
+                <br /><br />
+
                 <Form.Item>
                     <Button style={{ width: 200 }} type="primary" shape="round" size='large'>
                         确定

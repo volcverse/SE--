@@ -1,6 +1,6 @@
-import { Layout, Menu} from 'antd';
+import { Layout, Menu } from 'antd';
 import React from 'react';
-import { Link, Route } from 'react-router-dom'
+import { Link, Route, Switch, Redirect } from 'react-router-dom'
 import {
   TeamOutlined,
   UserOutlined,
@@ -39,30 +39,30 @@ class ManagerCenter extends React.Component {
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['m1']}>
             <Menu.Item key="m1" icon={<UserOutlined />}>
               个人中心
-              <Link to="/ManagerInfo"></Link>
+              <Link to="/ManagerCenter/ManagerInfo"></Link>
             </Menu.Item>
             <SubMenu key="userinfo" icon={<TeamOutlined />} title="用户操作">
               <Menu.Item key="1">新增用户
-              <Link to="/AddUser"></Link>
+              <Link to="/ManagerCenter/AddUser"></Link>
               </Menu.Item>
               <Menu.Item key="2">删除用户
-              <Link to="/DeleteUser"></Link>
+              <Link to="/ManagerCenter/DeleteUser"></Link>
               </Menu.Item>
               <Menu.Item key="3">修改用户
-              <Link to="/ChangeUser"></Link>
+              <Link to="/ManagerCenter/ChangeUser"></Link>
               </Menu.Item>
               <Menu.Item key="4">查找用户
-              <Link to="/FindUser"></Link>
+              <Link to="/ManagerCenter/FindUser"></Link>
               </Menu.Item>
             </SubMenu>
             <Menu.Item key="m4" icon={<FileTextOutlined />}>
               申请处理
-              <Link to="/Application"></Link>
-          </Menu.Item>
-          <Menu.Item key="5" icon={<CloudOutlined />}>
+              <Link to="/ManagerCenter/Application"></Link>
+            </Menu.Item>
+            <Menu.Item key="5" icon={<CloudOutlined />}>
               课程搜索
-              <Link to="/FindCourse"></Link>
-          </Menu.Item>
+              <Link to="/ManagerCenter/FindCourse"></Link>
+            </Menu.Item>
 
           </Menu>
         </Sider>
@@ -74,15 +74,19 @@ class ManagerCenter extends React.Component {
           </Header>
           <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
             <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
-              <Route path="/ManagerInfo" component={ManagerInfo}></Route>
-              <Route path="/AddUser" component={AddUser}></Route>
-              <Route path="/DeleteUser" component={DeleteUser}></Route>
-              <Route path="/ChangeUser" component={ChangeUser}></Route>
-              <Route path="/FindUser" component={FindUser}></Route>
-              <Route path="/Application" component={ApplicationDetail}></Route>
-              <Route path="/AdmChangePSW" component={AdmChangePSW}></Route>
-              <Route path="/ChangeAdmInfo" component={ChangeAdmInfo}></Route>
-              <Route path="/FindCourse" component={FindCourse}></Route>
+              <Switch>
+                <Route path="/ManagerCenter/ManagerInfo" component={ManagerInfo}></Route>
+                <Route path="/ManagerCenter/AddUser" component={AddUser}></Route>
+                <Route path="/ManagerCenter/DeleteUser" component={DeleteUser}></Route>
+                <Route path="/ManagerCenter/ChangeUser" component={ChangeUser}></Route>
+                <Route path="/ManagerCenter/FindUser" component={FindUser}></Route>
+                <Route path="/ManagerCenter/Application" component={Application}></Route>
+                <Route path="/ManagerCenter/ApplicationDetail" component={ApplicationDetail}></Route>
+                <Route path="/ManagerCenter/AdmChangePSW" component={AdmChangePSW}></Route>
+                <Route path="/ManagerCenter/ChangeAdmInfo" component={ChangeAdmInfo}></Route>
+                <Route path="/ManagerCenter/FindCourse" component={FindCourse}></Route>
+                <Redirect to="/ManagerCenter/ManagerInfo"></Redirect>
+              </Switch>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
