@@ -1,11 +1,79 @@
-import { Input, Button, Form } from 'antd';
+import { 
+  Input,
+  Button,
+  Form,
+  Table,
+  Tag,
+  Space,
+
+} from 'antd';
 import React from 'react';
 import { Select } from 'antd';
 const { Option } = Select;
 
 
 export default class FindCourse extends React.Component {
+
+  
   render() {
+    const columns = [
+      {
+        title: '课程名称',
+        dataIndex: 'name',
+        key: 'name',
+        render: text => <a>{text}</a>,
+      },
+      {
+        title: '课程编号',
+        dataIndex: 'id',
+        key: 'id',
+      },
+      {
+        title: '授课教师',
+        dataIndex: 'teacher',
+        key: 'teacher',
+      },
+      {
+        title: '时间',
+        dataIndex: 'date',
+        key: 'date',
+      },
+      {
+        title: '教室',
+        dataIndex: 'classroom',
+        key: 'classroom',
+      },
+      {
+        title: '操作',
+        key: 'action',
+        render: (text, record) => (
+          <Space size="middle">
+            <a>选择课程</a>
+            <a>其它</a>
+          </Space>
+        ),
+      },
+    ];
+    
+    const data = [
+      {
+        key: '1',
+        name: '中国近现代史纲要',
+        id: 32,
+        teacher: 'John',
+        date: '周7-1,2,3节',
+        classroom: '紫金港西1-111'
+      },
+      {
+        key: '2',
+        name: '面向对象程序设计',
+        id: 12,
+        teacher: 'Steve Jobs',
+        date: '周1-4,5,6节',
+        classroom: '紫金港东8-888'
+      },
+    ];
+
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -37,7 +105,9 @@ export default class FindCourse extends React.Component {
               查找课程信息
           </Button>
         <br/>
-        
+        <br /><br />
+
+        <Table columns={columns} dataSource={data} />
         
         <br /><br /><br /><br /><br /><br /><br /><br /><br />
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
