@@ -10,3 +10,4 @@ node_modules太多了，就不上传了。各位自行npm i
 
 2021-6-10
 在managercenter左边Menu中添加了“系统管理”，添加了SystemManagement.jsx(代码未实现)
+在学生申请中加入了“补选”选项
