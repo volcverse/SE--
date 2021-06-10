@@ -18,7 +18,7 @@ import FindUser from './FindUser'
 import ChangeAdmInfo from './ChangeAdmInfo'
 import FindCourse from './FindCourse'
 import ApplicationDetail from './ApplicationDetail'
-
+import SystemManagement from './SystemManagement'
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -58,8 +58,12 @@ class ManagerCenter extends React.Component {
             <Menu.Item key="m4" icon={<FileTextOutlined />}>
               申请处理
               <Link to="/ManagerCenter/Application"></Link>
+			      </Menu.Item>
+			      <Menu.Item key="m5" icon={<FileTextOutlined />}>
+              系统管理
+              <Link to="/ManagerCenter/SystemManagement"></Link>
             </Menu.Item>
-            <Menu.Item key="5" icon={<CloudOutlined />}>
+            <Menu.Item key="6" icon={<CloudOutlined />}>
               课程搜索
               <Link to="/ManagerCenter/FindCourse"></Link>
             </Menu.Item>
@@ -85,6 +89,7 @@ class ManagerCenter extends React.Component {
                 <Route path="/ManagerCenter/AdmChangePSW" component={AdmChangePSW}></Route>
                 <Route path="/ManagerCenter/ChangeAdmInfo" component={ChangeAdmInfo}></Route>
                 <Route path="/ManagerCenter/FindCourse" component={FindCourse}></Route>
+                <Route path="/ManagerCenter/SystemManagement" component={SystemManagement}></Route>
                 <Redirect to="/ManagerCenter/ManagerInfo"></Redirect>
               </Switch>
             </div>
@@ -98,3 +103,4 @@ class ManagerCenter extends React.Component {
 
 }
 export default ManagerCenter;
+
