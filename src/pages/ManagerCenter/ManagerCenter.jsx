@@ -6,6 +6,7 @@ import {
   UserOutlined,
   FileTextOutlined,
   CloudOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 
 import ManagerInfo from './ManagerInfo'
@@ -58,16 +59,15 @@ class ManagerCenter extends React.Component {
             <Menu.Item key="m4" icon={<FileTextOutlined />}>
               申请处理
               <Link to="/ManagerCenter/Application"></Link>
-			      </Menu.Item>
-			      <Menu.Item key="m5" icon={<FileTextOutlined />}>
-              系统管理
-              <Link to="/ManagerCenter/SystemManagement"></Link>
-            </Menu.Item>
-            <Menu.Item key="6" icon={<CloudOutlined />}>
+			  </Menu.Item>
+            <Menu.Item key="m5" icon={<CloudOutlined />}>
               课程搜索
               <Link to="/ManagerCenter/FindCourse"></Link>
             </Menu.Item>
-
+			<Menu.Item key="m6" icon={<SettingOutlined />}>
+              系统管理
+              <Link to="/ManagerCenter/SystemManagement"></Link>
+            </Menu.Item>
           </Menu>
         </Sider>
 
