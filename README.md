@@ -9,5 +9,5 @@ node_modules太多了，就不上传了。各位自行npm i
 完成信息管理相关所有页面的路由跳转。现在可以直接在登录界面选择用户类型然后直接点击登录进入相应页面（未连接后端，所以不用密码验证）。
 
 2021-6-10
-在managercenter左边Menu中添加了“系统管理”，添加了SystemManagement.jsx(代码未实现)
+在managercenter左边Menu中添加了“系统管理”，添加了SystemManagement.jsx
 在学生申请中加入了“补选”选项
