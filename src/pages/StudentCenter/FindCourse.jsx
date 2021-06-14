@@ -11,10 +11,24 @@ import React from 'react';
 import { Select } from 'antd';
 const { Option } = Select;
 
+function selectQuery(recordID) {
+  return 0
+}
+
+function selectCourseReturn(recordID) {
+  var validation_code = selectQuery(recordID);
+  if(validation_code==0)  alert('选课成功')
+  else {
+    switch(validation_code){
+      case 1: alert('选课失败，失败原因1'); break;
+      case 2: alert('选课失败，失败原因2'); break;
+      default: alert('选课失败，未知原因');
+    }
+  }
+}
 
 export default class FindCourse extends React.Component {
 
-  
   render() {
     const columns = [
       {
@@ -48,7 +62,7 @@ export default class FindCourse extends React.Component {
         key: 'action',
         render: (text, record) => (
           <Space size="middle">
-            <a>选择课程</a>
+            <a onClick={()=>selectCourseReturn(record.id)}>选择课程</a>
             <a>其它</a>
           </Space>
         ),
@@ -121,4 +135,3 @@ export default class FindCourse extends React.Component {
 function handleChange(value) {
   console.log(`selected ${value}`);
 }
-
