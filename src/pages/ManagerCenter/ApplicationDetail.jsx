@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { Descriptions, Button } from 'antd'
 
+function approveApplicationReturn(){
+    if(1) alert('操作成功')
+    else alert('操作失败')
+}
+
 export default class ApplicationDetail extends Component {
     render() {
         return (
@@ -26,10 +31,10 @@ export default class ApplicationDetail extends Component {
                     </Descriptions.Item>
                 </Descriptions>
                 <br /><br /><br /><br /><br /><br /><br />
-                <Button className="yes">
+                <Button className="yes" onClick={()=>approveApplicationReturn()}>
                     通过
                 </Button>
-                <Button className="no" style={{ marginLeft: 20 }}>
+                <Button className="no" style={{ marginLeft: 20 }}  onClick={()=>alert('操作成功')}>
                     驳回
                 </Button>
                 <br /><br /><br /><br /><br /><br /><br /><br /><br />
@@ -39,4 +44,3 @@ export default class ApplicationDetail extends Component {
         )
     }
 }
-
