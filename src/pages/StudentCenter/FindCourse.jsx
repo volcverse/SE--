@@ -111,7 +111,6 @@ export default class FindCourse extends React.Component {
             <Option value="name">课程名</Option>
             <Option value="cID">课程号</Option>
             <Option value="teacher">任课教师</Option>
-            <Option value="credit">学分</Option>
           </Select>
         </Form.Item>
         <br/>
