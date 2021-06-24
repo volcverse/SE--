@@ -10,6 +10,7 @@ import MyClass from './MyClass'
 import FindCourse from './FindCourse'
 import ChangeTeaInfo from './ChangeTeaInfo'
 import TeaChangePSW from './TeaChangePSW'
+import TeacherCourseInfo from './TeacherCourseInfo'
 import {
   BarChartOutlined,
   FileTextOutlined,
@@ -91,6 +92,7 @@ class TeacherCenter extends React.Component {
                 <Route path="/TeacherCenter/FindCourse" component={FindCourse}></Route>
                 <Route path="/TeacherCenter/TeaChangePSW" component={TeaChangePSW}></Route>
                 <Route path="/TeacherCenter/ChangeTeaInfo" component={ChangeTeaInfo}></Route>
+				<Route path="/TeacherCenter/TeacherCourseInfo" component={TeacherCourseInfo}></Route>
                 <Redirect to="/TeacherCenter/TeacherInfo"></Redirect>
               </Switch>
             </div>

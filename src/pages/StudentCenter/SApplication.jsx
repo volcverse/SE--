@@ -28,6 +28,7 @@ export default class SApplication extends Component {
                         <Option value="changemajor">转专业</Option>
                         <Option value="quit">退学</Option>
                         <Option value="suspend">休学</Option>
+						<Option value="by-election">特殊选课</Option>
                     </Select>
                 </Form.Item>
 

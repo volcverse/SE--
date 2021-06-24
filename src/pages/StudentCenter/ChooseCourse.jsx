@@ -27,12 +27,23 @@ function selectCourseReturn(recordID) {
     }
   }
 }
+function QuitCourseReturn(recordID) {
+  var validation_code = selectQuery(recordID);
+  if(validation_code==0)  alert('退课成功')
+  else {
+    switch(validation_code){
+      case 1: alert('退课失败，失败原因1'); break;
+      case 2: alert('退课失败，失败原因2'); break;
+      default: alert('退课失败，未知原因');
+    }
+  }
+}
 
 
 
 
 
-export default class FindCourse extends React.Component {
+export default class ChooseCourse extends React.Component {
 	
   render() {
 
@@ -43,21 +54,50 @@ export default class FindCourse extends React.Component {
         key: 'name',
         render: text => <a >{text}</a>,
       },
-	  {
-        title: '课程号',
-        dataIndex: 'courseid',
-        key: 'courseid',
-        
+      {
+        title: '课程编号',
+        dataIndex: 'id',
+        key: 'id',
       },
 	  {
-        title: '任课老师',
+        title: '学分',
+        dataIndex: 'credit',
+        key: 'credit',
+      },
+      {
+        title: '授课教师',
         dataIndex: 'teacher',
         key: 'teacher',
       },
-     {
-        title: '课程简介',
-        dataIndex: 'intro',
-        key: 'intro',
+      {
+        title: '时间',
+        dataIndex: 'date',
+        key: 'date',
+      },
+      {
+        title: '教室',
+        dataIndex: 'classroom',
+        key: 'classroom',
+      },
+	  {
+        title: '余量',
+        dataIndex: 'remain',
+        key: 'remain',
+      },
+      {
+        title: '操作',
+        key: 'action',
+        render: (text, record) => (
+          <Space size="middle">
+            <a onClick={()=>selectCourseReturn(record.id)}>选择</a>
+            <a onClick={()=>QuitCourseReturn(record.id)}>退选</a>
+          </Space>
+        ),
+      },
+	  {
+        title: '状态',
+        dataIndex: 'status',
+        key: 'status',
       },
     ];
     
@@ -65,17 +105,24 @@ export default class FindCourse extends React.Component {
       {
         key: '1',
         name: '中国近现代史纲要',
-        courseid: 32,
+        id: 32,
+		credit:1,
         teacher: 'John',
-		intro:'课程简介',
+        date: '周7-1,2,3节',
+        classroom: '紫金港西1-111',
+		remain:80,
+		status:'未选'
       },
       {
         key: '2',
         name: '面向对象程序设计',
-        courseid: 12,
-
+        id: 12,
+		credit:1,
         teacher: 'Steve Jobs',
-        intro:'课程简介',
+        date: '周1-4,5,6节',
+        classroom: '紫金港东8-888',
+		remain:80,
+		status:'未选'
       },
     ];
 
@@ -93,23 +140,6 @@ export default class FindCourse extends React.Component {
     return (
 
       <>
-        <br /><br /><br /><br /><br />
-        <Form.Item label="搜索关键字" {...formItemLayout}>
-          <Input></Input>
-        </Form.Item>
-        <Form.Item {...formItemLayout} label="依据">
-          <Select defaultValue="name" onChange={handleChange}>
-            <Option value="name">课程名</Option>
-            <Option value="cID">课程号</Option>
-            <Option value="teacher">任课教师</Option>
-          </Select>
-        </Form.Item>
-        <br/>
-        <Button style={{ width: 200 }} type="primary" shape="round" size='large'>
-              查找课程信息
-          </Button>
-        <br/>
-        <br /><br />
 
         <Table columns={columns} dataSource={data} />
 
@@ -125,3 +155,5 @@ export default class FindCourse extends React.Component {
 function handleChange(value) {
   console.log(`selected ${value}`);
 }
+
+

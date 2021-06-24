@@ -7,6 +7,9 @@ import MyApplication from './MyApplication'
 import FindCourse from './FindCourse'
 import ChangeStuInfo from './ChangeStuInfo'
 import StuChangePSW from './StuChangePSW'
+import Plan from './Plan'
+import ChooseCourse from './ChooseCourse'
+import StudentCourseInfo from './StudentCourseInfo'
 import {
   BarChartOutlined,
   CloudOutlined,
@@ -17,10 +20,11 @@ import {
   VideoCameraOutlined,
   HighlightOutlined,
   BookOutlined,
+  FileTextOutlined,
 } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
-
+const { SubMenu } = Menu;
 class StudentCenter extends React.Component {
   render() {
     return (
@@ -42,9 +46,17 @@ class StudentCenter extends React.Component {
             <Menu.Item key="2" icon={<VideoCameraOutlined />}>
               课程资源
           </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              选课中心
-          </Menu.Item>
+            <SubMenu key="lesson" icon={<FileTextOutlined />} title="选课中心">
+              <Menu.Item key="l0">培养方案
+              <Link to="/StudentCenter/Plan"></Link>
+              </Menu.Item>
+              <Menu.Item key="l1">课程选择
+              <Link to="/StudentCenter/ChooseCourse"></Link>
+              </Menu.Item>
+			  <Menu.Item key="l2">结果查看
+              <Link to="/StudentCenter/StudentCourseInfo"></Link>
+              </Menu.Item>
+            </SubMenu>
             <Menu.Item key="4" icon={<HighlightOutlined />}>
               在线测验
           </Menu.Item>
@@ -83,6 +95,9 @@ class StudentCenter extends React.Component {
                 <Route path="/StudentCenter/FindCourse" component={FindCourse}></Route>
                 <Route path="/StudentCenter/StuChangePSW" component={StuChangePSW}></Route>
                 <Route path="/StudentCenter/ChangeStuInfo" component={ChangeStuInfo}></Route>
+				<Route path="/StudentCenter/Plan" component={Plan}></Route>
+                <Route path="/StudentCenter/ChooseCourse" component={ChooseCourse}></Route>
+				<Route path="/StudentCenter/StudentCourseInfo" component={StudentCourseInfo}></Route>
                 <Redirect to="/StudentCenter/StudentInfo"></Redirect>
               </Switch>
             </div>

@@ -15,9 +15,8 @@ import DeleteUser from './DeleteUser'
 import ChangeUser from './ChangeUser'
 import Application from './Application'
 import AdmChangePSW from './AdmChangePSW'
-import FindUser from './FindUser'
 import ChangeAdmInfo from './ChangeAdmInfo'
-import FindCourse from './FindCourse'
+import ManagerChoose from './ManagerChoose'
 import ApplicationDetail from './ApplicationDetail'
 import SystemManagement from './SystemManagement'
 
@@ -61,8 +60,8 @@ class ManagerCenter extends React.Component {
               <Link to="/ManagerCenter/Application"></Link>
 			  </Menu.Item>
             <Menu.Item key="m5" icon={<CloudOutlined />}>
-              课程搜索
-              <Link to="/ManagerCenter/FindCourse"></Link>
+              手动选课
+              <Link to="/ManagerCenter/ManagerChoose"></Link>
             </Menu.Item>
 			<Menu.Item key="m6" icon={<SettingOutlined />}>
               系统管理
@@ -83,12 +82,11 @@ class ManagerCenter extends React.Component {
                 <Route path="/ManagerCenter/AddUser" component={AddUser}></Route>
                 <Route path="/ManagerCenter/DeleteUser" component={DeleteUser}></Route>
                 <Route path="/ManagerCenter/ChangeUser" component={ChangeUser}></Route>
-                <Route path="/ManagerCenter/FindUser" component={FindUser}></Route>
                 <Route path="/ManagerCenter/Application" component={Application}></Route>
                 <Route path="/ManagerCenter/ApplicationDetail" component={ApplicationDetail}></Route>
                 <Route path="/ManagerCenter/AdmChangePSW" component={AdmChangePSW}></Route>
                 <Route path="/ManagerCenter/ChangeAdmInfo" component={ChangeAdmInfo}></Route>
-                <Route path="/ManagerCenter/FindCourse" component={FindCourse}></Route>
+                <Route path="/ManagerCenter/ManagerChoose" component={ManagerChoose}></Route>
                 <Route path="/ManagerCenter/SystemManagement" component={SystemManagement}></Route>
                 <Redirect to="/ManagerCenter/ManagerInfo"></Redirect>
               </Switch>
@@ -103,4 +101,3 @@ class ManagerCenter extends React.Component {
 
 }
 export default ManagerCenter;
-
