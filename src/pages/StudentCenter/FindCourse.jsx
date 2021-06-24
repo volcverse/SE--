@@ -8,6 +8,7 @@ import {
 
 } from 'antd';
 import { Drawer, List, Avatar, Divider, Col, Row } from 'antd';
+import axios from 'axios';
 import React,{ useState }from 'react';
 import { Select } from 'antd';
 const { Option } = Select;
@@ -32,36 +33,36 @@ function selectCourseReturn(recordID) {
 
 
 
-export default class FindCourse extends React.Component {
+const FindCourse = () => {
 	
-  render() {
-
+    const [select, setSelect] = useState("name");
+    const [data, setData] = useState([]);
     const columns = [
       {
         title: '课程名称',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'cname',
+        key: 'cname',
         render: text => <a >{text}</a>,
       },
 	  {
         title: '课程号',
-        dataIndex: 'courseid',
-        key: 'courseid',
+        dataIndex: 'cid',
+        key: 'cid',
         
       },
 	  {
         title: '任课老师',
-        dataIndex: 'teacher',
-        key: 'teacher',
+        dataIndex: 'tname',
+        key: 'tname',
       },
      {
         title: '课程简介',
-        dataIndex: 'intro',
-        key: 'intro',
+        dataIndex: 'description',
+        key: 'description',
       },
     ];
     
-    const data = [
+    const data1 = [
       {
         key: '1',
         name: '中国近现代史纲要',
@@ -90,11 +91,46 @@ export default class FindCourse extends React.Component {
       },
     };
 
+    const onFinish = (values) => {
+      // console.log("values",values);
+      if(select === "name"){
+        axios.get('http://127.0.0.1:8000/api/searchname?name=' + values.key).then(response => {
+          setData(response.data);
+          console.log('response: ', response.data);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+      else if(select === "cID"){
+        axios.get('http://127.0.0.1:8000/api/searchid?id=' + values.key).then(response => {
+          setData(response.data);
+          console.log('response: ', response.data);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+      else if(select === "teacher"){
+        axios.get('http://127.0.0.1:8000/api/searchteacher?t=' + values.key).then(response => {
+          setData(response.data);
+          console.log('response: ', response.data);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+
+    };
+
+    function handleChange(value) {
+      console.log(`selected ${value}`);
+      setSelect(value);
+    }
+
     return (
 
       <>
         <br /><br /><br /><br /><br />
-        <Form.Item label="搜索关键字" {...formItemLayout}>
+        <Form onFinish={onFinish}>
+        <Form.Item label="搜索关键字" name="key" {...formItemLayout}>
           <Input></Input>
         </Form.Item>
         <Form.Item {...formItemLayout} label="依据">
@@ -105,9 +141,10 @@ export default class FindCourse extends React.Component {
           </Select>
         </Form.Item>
         <br/>
-        <Button style={{ width: 200 }} type="primary" shape="round" size='large'>
+        <Button style={{ width: 200 }} type="primary" shape="round" size='large'  htmlType="submit">
               查找课程信息
           </Button>
+        </Form>
         <br/>
         <br /><br />
 
@@ -119,9 +156,7 @@ export default class FindCourse extends React.Component {
 
       </>
     )
-  }
 }
 
-function handleChange(value) {
-  console.log(`selected ${value}`);
-}
+export default FindCourse;
+
