@@ -1,6 +1,7 @@
 import { Input, Button, Form,Popconfirm,message } from 'antd';
 import React from 'react';
 import { Select } from 'antd';
+import axios from 'axios';
 const { Option } = Select;
 
 
@@ -21,27 +22,24 @@ export default class ManagerChoose extends React.Component {
 
       <>
         <br /><br /><br /><br /><br />
-        <Form.Item label="课程id" {...formItemLayout}>
+        <Form onFinish={onFinish}>
+        <Form.Item label="课程id"  name="cid" {...formItemLayout}>
           <Input></Input>
         </Form.Item>
-		<Form.Item label="学生id" {...formItemLayout}>
+		<Form.Item label="学生id" name="stuid" {...formItemLayout}>
           <Input></Input>
+        </Form.Item>
+        <Form.Item>
+        <Button style={{ width: 200 }} type="primary" shape="round" size='large' htmlType="submit">
+              确认
+        </Button>
+
         </Form.Item>
 
-        <br/>
-				<Popconfirm
-                    title="您确认设置内容无误吗？"
-                    onConfirm={confirm}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                >
-        <Button style={{ width: 200 }} type="primary" shape="round" size='large'>
-              确认
-            </Button>
-			</Popconfirm>
-        <br/>
         
+
+        </Form>
+
         
         <br /><br /><br /><br /><br /><br /><br /><br /><br />
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
@@ -50,6 +48,15 @@ export default class ManagerChoose extends React.Component {
       </>
     )
   }
+}
+
+
+const onFinish = (values) => {
+  axios.get('http://127.0.0.1:8000/api/managerChooseCourse?stu=' + values.stuid + '&cid=' + values.cid).then(response => {
+    console.log('response: ', response.data);
+  }).catch(function (error) {
+    console.log(error);
+  });
 }
 
 function handleChange(value) {
