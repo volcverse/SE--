@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import { Table, Space } from 'antd';
+import axios from 'axios';
 import { Popconfirm, message } from 'antd';
 import { Descriptions } from 'antd';
 
@@ -75,25 +76,35 @@ const data = [
 ];
 
 
-export default class StudentCourseInfo extends Component {
-    render(){
-        return(
-        <div>
-        <Descriptions title="学生信息">
-            <Descriptions.Item label="姓名">张三</Descriptions.Item>
-            <Descriptions.Item label="学号">319010xxxx</Descriptions.Item>
-            <Descriptions.Item label="身份证号">123456789XXXXX</Descriptions.Item>
-            <Descriptions.Item label="班级">软工1901</Descriptions.Item>
-            <Descriptions.Item label="总学分">xx</Descriptions.Item>
-            <Descriptions.Item label="GPA">5.0</Descriptions.Item>
-        </Descriptions>
-        <br />
-        <Table columns={columns} dataSource={data} scroll={{ x: 1300 }} />
-        </div>
-        )
-    }
+const StudentCourseInfo = () => {
+  const [tbdata, setTbdata] = useState([]);
+  useEffect(()=>{
+    axios.get('http://127.0.0.1:8000/api/result/' + '3190100123').then(response => {
+      setTbdata(response.data);
+      console.log('response: ', response.data);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  },[])
+
+
+
+  return(
+  <div>
+  <Descriptions title="学生信息">
+      <Descriptions.Item label="姓名">张三</Descriptions.Item>
+      <Descriptions.Item label="学号">319010xxxx</Descriptions.Item>
+      <Descriptions.Item label="身份证号">123456789XXXXX</Descriptions.Item>
+      <Descriptions.Item label="班级">软工1901</Descriptions.Item>
+      <Descriptions.Item label="总学分">xx</Descriptions.Item>
+      <Descriptions.Item label="GPA">5.0</Descriptions.Item>
+  </Descriptions>
+  <br />
+  <Table columns={columns} dataSource={data} scroll={{ x: 1300 }} />
+  </div>
+  )
 }
  
-
+export default StudentCourseInfo;
 
  
