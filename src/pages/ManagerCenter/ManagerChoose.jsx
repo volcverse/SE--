@@ -2,7 +2,6 @@ import { Input, Button, Form,Popconfirm,message } from 'antd';
 import React from 'react';
 import { Select } from 'antd';
 import axios from 'axios';
-const { Option } = Select;
 
 
 export default class ManagerChoose extends React.Component {
