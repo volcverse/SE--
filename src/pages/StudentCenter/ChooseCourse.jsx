@@ -7,9 +7,12 @@ import {
   Space,
 
 } from 'antd';
-import { Drawer, List, Avatar, Divider, Col, Row } from 'antd';
-import React,{ useState }from 'react';
+import { Drawer, List, Avatar, Divider, Col, Row,Popconfirm } from 'antd';
+import React,{ useState, useEffect }from 'react';
+import axios from 'axios';
 import { Select } from 'antd';
+const { Column, ColumnGroup } = Table;
+
 const { Option } = Select;
   
 function selectQuery(recordID) {
@@ -42,118 +45,55 @@ function QuitCourseReturn(recordID) {
 
 
 
+const ChooseCourse = () =>  {
+  const [tbdata, setTbdata] = useState([]);
+  useEffect(()=>{
+    axios.get('http://127.0.0.1:8000/api/getAllCourse' ).then(response => {
+      setTbdata(response.data);
+      console.log('response: ', response.data);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  },[]);
 
-export default class ChooseCourse extends React.Component {
-	
-  render() {
+  return (
+<>
+      <Table dataSource={tbdata}>
+  <Column title="课程号" dataIndex="ID" key="ID" />
+  <Column title="课程名" dataIndex="cname" key="cname" />
+  <Column title="学分" dataIndex="credit" key="credit" />
+  <Column title="课程类别" dataIndex="type" key="type" />
+  <Column title="教师" dataIndex="tname" key="tname" />
+  <Column title="星期" dataIndex="day" key="day" />
+  <Column title="时间段" dataIndex="time" key="time" />
+  <Column
+    title="Action"
+    key="action"
+    render={(text, record) => (
+      <Space size="middle">
+          <a onClick={()=>{console.log(record)}}>选择</a>
+          <a onClick={()=>QuitCourseReturn(record.id)}>退选</a>
+      </Space>
+    )}
+  />
+</Table>
 
-    const columns = [
-      {
-        title: '课程名称',
-        dataIndex: 'name',
-        key: 'name',
-        render: text => <a >{text}</a>,
-      },
-      {
-        title: '课程编号',
-        dataIndex: 'id',
-        key: 'id',
-      },
-	  {
-        title: '学分',
-        dataIndex: 'credit',
-        key: 'credit',
-      },
-      {
-        title: '授课教师',
-        dataIndex: 'teacher',
-        key: 'teacher',
-      },
-      {
-        title: '时间',
-        dataIndex: 'date',
-        key: 'date',
-      },
-      {
-        title: '教室',
-        dataIndex: 'classroom',
-        key: 'classroom',
-      },
-	  {
-        title: '余量',
-        dataIndex: 'remain',
-        key: 'remain',
-      },
-      {
-        title: '操作',
-        key: 'action',
-        render: (text, record) => (
-          <Space size="middle">
-            <a onClick={()=>selectCourseReturn(record.id)}>选择</a>
-            <a onClick={()=>QuitCourseReturn(record.id)}>退选</a>
-          </Space>
-        ),
-      },
-	  {
-        title: '状态',
-        dataIndex: 'status',
-        key: 'status',
-      },
-    ];
-    
-    const data = [
-      {
-        key: '1',
-        name: '中国近现代史纲要',
-        id: 32,
-		credit:1,
-        teacher: 'John',
-        date: '周7-1,2,3节',
-        classroom: '紫金港西1-111',
-		remain:80,
-		status:'未选'
-      },
-      {
-        key: '2',
-        name: '面向对象程序设计',
-        id: 12,
-		credit:1,
-        teacher: 'Steve Jobs',
-        date: '周1-4,5,6节',
-        classroom: '紫金港东8-888',
-		remain:80,
-		status:'未选'
-      },
-    ];
-
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 4, offset: 4 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-      },
-    };
-
-    return (
-
-      <>
-
-        <Table columns={columns} dataSource={data} />
-
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br />
-
-      </>
-    )
-  }
+              <Popconfirm
+                  title="您确认无误吗？定制之后将无法修改"
+                  onConfirm={()=>{}}
+                  onCancel={() => {}}
+                  okText="Yes"
+                  cancelText="No"
+              >
+                  <Button type="primary">确认</Button>
+              </Popconfirm>
+  </>
+  )
 }
 
 function handleChange(value) {
   console.log(`selected ${value}`);
 }
 
+export default ChooseCourse;
 
