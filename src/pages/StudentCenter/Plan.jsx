@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect} from 'react'
 import { Descriptions, Button,Popconfirm,Input, Select,message } from 'antd';
 import { Image } from 'antd';
 import { Link } from 'react-router-dom'
+import axios from 'axios';
 import { Table, Tag, Space } from 'antd';
 const { Option } = Select;
 const { TextArea } = Input;
@@ -35,114 +36,68 @@ function QuitCourseReturn(recordID) {
 const data = [
   {
     key: '1',
-    课程名: '认识实习',
-    学分: 1,
-    课程类别: '必修',
-	状态:'已选'
+    cname: '认识实习',
+	  ID:'x0001',
+    credit: 1,
+    type: '必修'
   },
   {
     key: '2',
-    课程名: '认识实习',
-	课程编号:'x0000',
-    学分: 1,
-    课程类别: '必修',
-	状态:'已选'
-  },
-  {
-    key: '3',
-    课程名: '认识实习',
-    学分: 1,
-    课程类别: '必修',
-	状态:'已选'
-  },
-    {
-    key: '4',
-    课程名: '认识实习',
-    学分: 1,
-    课程类别: '必修',
-	状态:'已选'
-  },
-    {
-    key: '5',
-    课程名: '认识实习',
-    学分: 1,
-    课程类别: '必修',
-	状态:'已选'
-  },
-    {
-    key: '6',
-    课程名: '认识实习',
-	课程编号:'x0000',
-    学分: 1,
-    课程类别: '必修',
-	状态:'已选'
-  },
-    {
-    key: '7',
-    课程名: '认识实习',
-	课程编号:'x0000',
-    学分: 1,
-    课程类别: '选修',
-	状态:'未选'
-  },
-    {
-    key: '8',
-    课程名: '认识实习',
-    学分: 1,
-    课程类别: '选修',
-	状态:'未选'
-  },
-    {
-    key: '9',
-    课程名: '认识实习',
-    学分: 1,
-    课程类别: '选修',
-	状态:'未选'
-  },
-    {
-    key: '10',
-    课程名: '认识实习',
-    学分: 1,
-    课程类别: '选修',
-	状态:'未选'
-  },
+    cname: '不认识实习',
+	  ID:'x0000',
+    credit: 2,
+    type: '必修'
+  }
 ];
 
-export default class Plan extends Component {
-  render() {
-    return (
-<>
-       <Table dataSource={data}>
-      <Column title="课程名" dataIndex="课程名" key="课程名" />
-    <Column title="学分" dataIndex="学分" key="学分" />
-    <Column title="课程类别" dataIndex="课程类别" key="课程类别" />
-    <Column
-      title="Action"
-      key="action"
-      render={(text, record) => (
-        <Space size="middle">
-            <a onClick={()=>selectCourseReturn(record.id)}>选择</a>
-            <a onClick={()=>QuitCourseReturn(record.id)}>退选</a>
-        </Space>
-      )}
-    />
-	<Column title="状态" dataIndex="状态" key="状态" />
-  </Table>
+const Plan = () => {
+  const [tbdata, setTbdata] = useState([]);
+  useEffect(()=>{
+    axios.get('http://127.0.0.1:8000/api/getAllCourse' ).then(response => {
+      setTbdata(response.data);
+      console.log('response: ', response.data);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  },[]);
 
-                <Popconfirm
-                    title="您确认无误吗？定制之后将无法修改"
-                    onConfirm={confirm}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                >
-                    <Button type="primary">确认</Button>
-                </Popconfirm>
-		</>
-    )
-  }
+  return (
+<>
+      <Table dataSource={tbdata}>
+  <Column title="课程号" dataIndex="ID" key="ID" />
+  <Column title="课程名" dataIndex="cname" key="cname" />
+  <Column title="学分" dataIndex="credit" key="credit" />
+  <Column title="课程类别" dataIndex="type" key="type" />
+  <Column title="教师" dataIndex="tname" key="tname" />
+  <Column title="星期" dataIndex="day" key="day" />
+  <Column title="时间段" dataIndex="time" key="time" />
+  <Column
+    title="Action"
+    key="action"
+    render={(text, record) => (
+      <Space size="middle">
+          <a onClick={()=>{console.log(record)}}>选择</a>
+          <a onClick={()=>QuitCourseReturn(record.id)}>退选</a>
+      </Space>
+    )}
+  />
+</Table>
+
+              <Popconfirm
+                  title="您确认无误吗？定制之后将无法修改"
+                  onConfirm={confirm}
+                  onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
+              >
+                  <Button type="primary">确认</Button>
+              </Popconfirm>
+  </>
+  )
 
 }
+
+export default Plan;
 function confirm(e) {
     console.log(e);
     message.success('操作确认');
