@@ -78,15 +78,6 @@ const ChooseCourse = () =>  {
   />
 </Table>
 
-              <Popconfirm
-                  title="您确认无误吗？定制之后将无法修改"
-                  onConfirm={()=>{}}
-                  onCancel={() => {}}
-                  okText="Yes"
-                  cancelText="No"
-              >
-                  <Button type="primary">确认</Button>
-              </Popconfirm>
   </>
   )
 }
