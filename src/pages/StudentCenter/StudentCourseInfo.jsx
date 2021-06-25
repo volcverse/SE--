@@ -20,10 +20,10 @@ const columns = [
   { title: '星期五', dataIndex: 'Fri', key: '5' },
   { title: '星期六', dataIndex: 'Sat', key: '6' },
   { title: '星期日', dataIndex: 'Sun', key: '7' },
-];
-
-const data = [
+]
+const d = [
   {
+    key:'1',
     time:'8:00-10:00',
     Mon:'',
     Tue:'',
@@ -34,6 +34,7 @@ const data = [
     Sun:'',
   },
   {
+    key:'2',
     time:'10:15-12:15',
     Mon:'',
     Tue:'',
@@ -44,6 +45,7 @@ const data = [
     Sun:'',
   },
   {
+    key:'3',
     time:'14:00-16:00',
     Mon:'',
     Tue:'',
@@ -54,6 +56,7 @@ const data = [
     Sun:'',
   },
   {
+    key:'4',
     time:'16:15-18:00',
     Mon:'',
     Tue:'',
@@ -64,6 +67,7 @@ const data = [
     Sun:'',
   },
   {
+    key:'5',
     time:'19:00-21:00',
     Mon:'',
     Tue:'',
@@ -75,18 +79,37 @@ const data = [
   },
 ];
 
+const week=[
+  'Mon','Tue','Wedn','Thr','Fri','Sat','Sun',
+]
 
 const StudentCourseInfo = () => {
-  const [tbdata, setTbdata] = useState([]);
+  const [data,setData] = useState(d);
   useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/api/result/' + '3190100123').then(response => {
-      setTbdata(response.data);
-      console.log('response: ', response.data);
+    axios.get('http://127.0.0.1:8000/api/searchcourseById/' + '3190100123').then(response => {
+      let tmpdata = data;
+      let t = response.data;
+      console.log('response: ', t);
+      t.forEach(function(value,index,array){
+        let tmpdate = week[value.day-1];
+        console.log(tmpdate);
+        // tmpdata[value.time-1][tmpdate] = value.name;
+        console.log(value.name);
+        switch(value.day){
+          case 1:tmpdata[value.time-1].Mon = value.name;break;
+          case 2:tmpdata[value.time-1].Tue = value.name;break;
+          case 3:tmpdata[value.time-1].Wedn = value.name;break;
+          case 4:tmpdata[value.time-1].Thr = value.name;break;
+          case 5:tmpdata[value.time-1].Fri = value.name;break;
+          case 6:tmpdata[value.time-1].Sat = value.name;break;
+          case 7:tmpdata[value.time-1].Sun = value.name;break;
+        }
+        setData(tmpdata);
+      })
     }).catch(function (error) {
       console.log(error);
     });
   },[])
-
 
 
   return(
