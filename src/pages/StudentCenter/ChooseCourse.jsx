@@ -71,8 +71,8 @@ const ChooseCourse = () =>  {
     key="action"
     render={(text, record) => (
       <Space size="middle">
-          <a onClick={()=>{console.log(record)}}>选择</a>
-          <a onClick={()=>QuitCourseReturn(record.id)}>退选</a>
+        {/* // TODO: implement real stuid */}
+          <a onClick={()=>{chooseCourse(record.ID, '3190100123')}}>选择</a>
       </Space>
     )}
   />
@@ -91,9 +91,12 @@ const ChooseCourse = () =>  {
   )
 }
 
-function handleChange(value) {
-  console.log(`selected ${value}`);
-}
-
+const chooseCourse = (cid, stuid) => {
+  axios.get('http://127.0.0.1:8000/api/chooseCourse?stu='+stuid + '&cid='+cid).then(response => {
+    console.log('chooseCourse: ', response.data);
+  }).catch(function (error) {
+    console.log(error);
+  });
+};
 export default ChooseCourse;
 
