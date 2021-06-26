@@ -7,7 +7,7 @@ import {
   Space,
 
 } from 'antd';
-import { Drawer, List, Avatar, Divider, Col, Row,Popconfirm } from 'antd';
+import { Drawer, List, Avatar, Divider, Col, Row,Popconfirm, message } from 'antd';
 import React,{ useState, useEffect }from 'react';
 import axios from 'axios';
 import { Select } from 'antd';
@@ -48,7 +48,7 @@ function QuitCourseReturn(recordID) {
 const ChooseCourse = () =>  {
   const [tbdata, setTbdata] = useState([]);
   useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/api/getAllCourse' ).then(response => {
+    axios.get('http://127.0.0.1:8000/api/getPlanByID?id=' + '3190100123').then(response => {
       setTbdata(response.data);
       console.log('response: ', response.data);
     }).catch(function (error) {
@@ -58,6 +58,7 @@ const ChooseCourse = () =>  {
 
   return (
 <>
+<p style={{'font-size':'30px'}}>选择课程</p>
       <Table dataSource={tbdata}>
   <Column title="课程号" dataIndex="ID" key="ID" />
   <Column title="课程名" dataIndex="cname" key="cname" />
@@ -73,6 +74,7 @@ const ChooseCourse = () =>  {
       <Space size="middle">
         {/* // TODO: implement real stuid */}
           <a onClick={()=>{chooseCourse(record.ID, '3190100123')}}>选择</a>
+          <a onClick={()=>{delCourse(record.ID, '3190100123')}}>从课表中删除</a>
       </Space>
     )}
   />
@@ -84,7 +86,27 @@ const ChooseCourse = () =>  {
 
 const chooseCourse = (cid, stuid) => {
   axios.get('http://127.0.0.1:8000/api/chooseCourse?stu='+stuid + '&cid='+cid).then(response => {
-    console.log('chooseCourse: ', response.data);
+    if(response.data === 1){
+      message.success("成功选课!");
+    }
+    else{
+      message.warning("已选择该课程");
+
+    }
+  }).catch(function (error) {
+    console.log(error);
+  });
+};
+
+const delCourse = (cid, stuid) => {
+  axios.get('http://127.0.0.1:8000/api/delCourse?stu='+stuid + '&cid='+cid).then(response => {
+    if(response.data !== 0){
+      message.success("成功删除!");
+    }
+    else{
+      message.warning("已删除或课程信息不存在");
+
+    }
   }).catch(function (error) {
     console.log(error);
   });

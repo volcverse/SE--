@@ -33,22 +33,7 @@ function QuitCourseReturn(recordID) {
     }
   }
 }
-const data = [
-  {
-    key: '1',
-    cname: '认识实习',
-	  ID:'x0001',
-    credit: 1,
-    type: '必修'
-  },
-  {
-    key: '2',
-    cname: '不认识实习',
-	  ID:'x0000',
-    credit: 2,
-    type: '必修'
-  }
-];
+
 
 const Plan = () => {
   const [tbdata, setTbdata] = useState([]);
@@ -63,6 +48,7 @@ const Plan = () => {
 
   return (
 <>
+    <p style={{'font-size':'30px'}}>定制您的培养方案</p>
       <Table dataSource={tbdata}>
   <Column title="课程号" dataIndex="ID" key="ID" />
   <Column title="课程名" dataIndex="cname" key="cname" />
@@ -76,26 +62,45 @@ const Plan = () => {
     key="action"
     render={(text, record) => (
       <Space size="middle">
-          <a onClick={()=>{console.log(record)}}>选择</a>
-          <a onClick={()=>QuitCourseReturn(record.id)}>退选</a>
+          <a onClick={()=>{chooseCourse(record.ID, '3190100123')}}>选择</a>
+          <a onClick={()=>{delCourse(record.ID, '3190100123')}}>从培养方案中删除</a>
       </Space>
     )}
   />
 </Table>
-
-              <Popconfirm
-                  title="您确认无误吗？定制之后将无法修改"
-                  onConfirm={confirm}
-                  onCancel={cancel}
-                  okText="Yes"
-                  cancelText="No"
-              >
-                  <Button type="primary">确认</Button>
-              </Popconfirm>
   </>
   )
 
 }
+
+
+const chooseCourse = (cid, stuid) => {
+  axios.get('http://127.0.0.1:8000/api/choosePlan?stu='+stuid + '&cid='+cid).then(response => {
+    console.log('choosePlan: ', response.data);
+    if(response.data !== 1){
+      message.warning("培养方案中已存在该课程");
+    }
+    else{
+      message.success("成功添加到培养方案!");
+
+    }
+  }).catch(function (error) {
+    console.log(error);
+  });
+};
+
+const delCourse = (cid, stuid) => {
+  axios.get('http://127.0.0.1:8000/api/delCourseinPlan?stu='+stuid + '&cid='+cid).then(response => {
+    if(response.data !== 0){
+      message.success("成功删除!");
+    }
+    else{
+      message.warning("已删除或课程信息不存在");
+    }
+  }).catch(function (error) {
+    console.log(error);
+  });
+};
 
 export default Plan;
 function confirm(e) {
