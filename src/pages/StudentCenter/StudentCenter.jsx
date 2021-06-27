@@ -25,6 +25,38 @@ import {
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
+
+        var status = true;
+        var timer;
+        document.body.onmousedown = function () {
+                status = true;
+           }
+        document.body.onmouseup = function () {
+            countTime();
+        }
+
+        function countTime() {
+
+            setInterval(function() {
+                if (!status) {
+					status = true;
+					
+                    return window.location.href='http://localhost:3000/LoginInterface';
+                    
+                }
+            }, 1);
+
+            if(timer){
+                clearInterval(timer);
+            }
+
+            timer = setInterval(function () {
+                status = false;
+            }, 120000);
+        }
+        countTime();
+
+
 class StudentCenter extends React.Component {
   render() {
     return (
