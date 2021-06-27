@@ -53,56 +53,27 @@ const SystemManagement = () => {
       <Form.Item name="ReTime" label="补选时间设置" {...formItemLayout}>
         <RangePicker showTime format="YYYY-MM-DD HH:mm:ss " />
       </Form.Item>      
-      <Popconfirm
-                    title="您确认开始初选吗？"
-                    onConfirm={confirm}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                >
-        <Button style={{ width: 100 }} type="primary" shape="round" size='large'>
-              初选开始
-            </Button>
-	</Popconfirm>
+
+      <Button style={{ width: 100 }} type="primary" shape="round" size='large' onClick={() => {confirm(1);}}>
+        初选开始
+      </Button>
 			
 			<br /><br /><br />
-	<Popconfirm
-                    title="您确认结束初选吗？"
-                    onConfirm={confirm}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                >
-        <Button style={{ width: 100 }} type="primary" shape="round" size='large'>
-              初选结束
-            </Button>
-	</Popconfirm>
+      <Button style={{ width: 100 }} type="primary" shape="round" size='large' onClick={() => {confirm(2);}}>
+            初选结束
+      </Button>
+    
+			<br /><br /><br />
+
+      <Button style={{ width: 100 }} type="primary" shape="round" size='large' onClick={() => {confirm(3);}}>
+            补选开始
+      </Button>
 			
 			<br /><br /><br />
-	<Popconfirm
-                    title="您确认开始补选吗？"
-                    onConfirm={confirm}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                >
-        <Button style={{ width: 100 }} type="primary" shape="round" size='large'>
-              补选开始
-            </Button>
-	</Popconfirm>
-			
-			<br /><br /><br />
-	<Popconfirm
-                    title="您确认结束补选吗？"
-                    onConfirm={confirm}
-                    onCancel={cancel}
-                    okText="Yes"
-                    cancelText="No"
-                >
-        <Button style={{ width: 100 }} type="primary" shape="round" size='large'>
+
+        <Button style={{ width: 100 }} type="primary" shape="round" size='large' onClick={() => {confirm(4);}}>
               补选结束
-            </Button>
-	</Popconfirm>
+        </Button>
         <br/>
         
         
@@ -114,9 +85,19 @@ const SystemManagement = () => {
     )
 }
 
-function confirm(e) {
-    console.log(e);
-    message.success('操作确认');
+const confirm = (state) => {
+  axios.get('http://127.0.0.1:8000/api/managerState?state='+ state).then(response => {
+    console.log('response: ', response.data);
+    switch (state) {
+      case 1: message.success('已开始初选');break;
+      case 2: message.success('已结束初选');break;
+      case 3: message.success('已开始补选');break;
+      case 4: message.success('已结束补选');break;
+      default:break;
+    }
+  }).catch(function (error) {
+    console.log(error);
+  });
 }
 
 function cancel(e) {
