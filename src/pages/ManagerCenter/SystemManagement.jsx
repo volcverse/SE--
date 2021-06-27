@@ -47,12 +47,8 @@ const SystemManagement = () => {
       <>
         <br /><br /><br /><br /><br />
 	  <Form {...formItemLayout1} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-      <Form.Item name="PrimaryTime" label="初选时间设置" {...formItemLayout}>
-        <RangePicker showTime format="YYYY-MM-DD HH:mm:ss " />
-      </Form.Item>
-      <Form.Item name="ReTime" label="补选时间设置" {...formItemLayout}>
-        <RangePicker showTime format="YYYY-MM-DD HH:mm:ss " />
-      </Form.Item>      
+    <p style={{'font-size':'30px'}}>改变选课状态</p>
+  
 
       <Button style={{ left: '-10%' }} type="primary" shape="round" size='large' onClick={() => {confirm(1);}}>
         初选开始
