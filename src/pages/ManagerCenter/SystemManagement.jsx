@@ -53,17 +53,56 @@ const SystemManagement = () => {
       <Form.Item name="ReTime" label="补选时间设置" {...formItemLayout}>
         <RangePicker showTime format="YYYY-MM-DD HH:mm:ss " />
       </Form.Item>      
-		        <Popconfirm
-                    title="您确认设置内容无误吗？"
+      <Popconfirm
+                    title="您确认开始初选吗？"
                     onConfirm={confirm}
                     onCancel={cancel}
                     okText="Yes"
                     cancelText="No"
                 >
-            <Button style={{ width: 100 }} type="primary" shape="round" size='large' htmlType="submit">
-              确定
+        <Button style={{ width: 100 }} type="primary" shape="round" size='large'>
+              初选开始
             </Button>
-          </Popconfirm>
+	</Popconfirm>
+			
+			<br /><br /><br />
+	<Popconfirm
+                    title="您确认结束初选吗？"
+                    onConfirm={confirm}
+                    onCancel={cancel}
+                    okText="Yes"
+                    cancelText="No"
+                >
+        <Button style={{ width: 100 }} type="primary" shape="round" size='large'>
+              初选结束
+            </Button>
+	</Popconfirm>
+			
+			<br /><br /><br />
+	<Popconfirm
+                    title="您确认开始补选吗？"
+                    onConfirm={confirm}
+                    onCancel={cancel}
+                    okText="Yes"
+                    cancelText="No"
+                >
+        <Button style={{ width: 100 }} type="primary" shape="round" size='large'>
+              补选开始
+            </Button>
+	</Popconfirm>
+			
+			<br /><br /><br />
+	<Popconfirm
+                    title="您确认结束补选吗？"
+                    onConfirm={confirm}
+                    onCancel={cancel}
+                    okText="Yes"
+                    cancelText="No"
+                >
+        <Button style={{ width: 100 }} type="primary" shape="round" size='large'>
+              补选结束
+            </Button>
+	</Popconfirm>
         <br/>
         
         
