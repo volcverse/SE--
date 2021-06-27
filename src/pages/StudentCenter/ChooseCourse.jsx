@@ -97,6 +97,7 @@ const chooseCourse = (cid, stuid) => {
     else if(response.data === 4){
       message.warning("补选已结束!");
     }
+    return;
   }).catch(function (error) {
     console.log(error);
   });
