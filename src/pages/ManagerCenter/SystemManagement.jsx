@@ -53,10 +53,6 @@ const SystemManagement = () => {
       <Form.Item name="ReTime" label="补选时间设置" {...formItemLayout}>
         <RangePicker showTime format="YYYY-MM-DD HH:mm:ss " />
       </Form.Item>      
-	  
-	  <Form.Item name="maxcnt" label="在线人数限制" rules={[{ type: 'number', min: 1, max: 10000 }]}{...formItemLayout1}>
-        <InputNumber/>
-        </Form.Item>	
 		        <Popconfirm
                     title="您确认设置内容无误吗？"
                     onConfirm={confirm}
