@@ -89,8 +89,10 @@ const chooseCourse = (cid, stuid) => {
     if(response.data === 1){
       message.success("成功选课!");
     }
+    else if (response.data === "Time_Conflict"){
+      message.warning("时间冲突");
+    }
     else{
-      message.warning("已选择该课程");
 
     }
   }).catch(function (error) {

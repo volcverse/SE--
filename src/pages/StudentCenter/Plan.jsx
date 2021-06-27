@@ -38,7 +38,7 @@ function QuitCourseReturn(recordID) {
 const Plan = () => {
   const [tbdata, setTbdata] = useState([]);
   useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/api/getAllCourse' ).then(response => {
+    axios.get('http://127.0.0.1:8000/api/getDistinctCourse' ).then(response => {
       setTbdata(response.data);
       console.log('response: ', response.data);
     }).catch(function (error) {
@@ -54,9 +54,9 @@ const Plan = () => {
   <Column title="课程名" dataIndex="cname" key="cname" />
   <Column title="学分" dataIndex="credit" key="credit" />
   <Column title="课程类别" dataIndex="type" key="type" />
-  <Column title="教师" dataIndex="tname" key="tname" />
+  {/* <Column title="教师" dataIndex="tname" key="tname" />
   <Column title="星期" dataIndex="day" key="day" />
-  <Column title="时间段" dataIndex="time" key="time" />
+  <Column title="时间段" dataIndex="time" key="time" /> */}
   <Column
     title="Action"
     key="action"
