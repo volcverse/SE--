@@ -88,39 +88,40 @@ const ChooseCourse = () =>  {
 
 const chooseCourse = (cid, stuid) => {
   axios.get('http://127.0.0.1:8000/api/getManageState').then(response => {
+    console.log(response.data);
     if(response.data === 0){
       message.warning("未开始选课!");
-      return;
     }
     else if(response.data === 2){
       message.warning("初选已结束!");
-      return;
     }
     else if(response.data === 4){
       message.warning("补选已结束!");
-      return;
     }
+    else{
+      axios.get('http://127.0.0.1:8000/api/chooseCourse?stu='+stuid + '&cid='+cid).then(response => {
+        if(response.data === 1){
+          message.success("成功选课!");
+        }
+        else if (response.data === "Time_Conflict"){
+          message.warning("时间冲突");
+        }
+        else if (response.data === "No_remain"){
+          message.error("课程无余量");
+        }
+        else if (response.data === "Success"){
+          message.success("选课成功");
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+    
   }).catch(function (error) {
     console.log(error);
   });
 
 
-  axios.get('http://127.0.0.1:8000/api/chooseCourse?stu='+stuid + '&cid='+cid).then(response => {
-    if(response.data === 1){
-      message.success("成功选课!");
-    }
-    else if (response.data === "Time_Conflict"){
-      message.warning("时间冲突");
-    }
-    else if (response.data === "No_remain"){
-      message.error("课程无余量");
-    }
-    else if (response.data === "Success"){
-      message.success("选课成功");
-    }
-  }).catch(function (error) {
-    console.log(error);
-  });
 };
 
 const delCourse = (cid, stuid) => {
