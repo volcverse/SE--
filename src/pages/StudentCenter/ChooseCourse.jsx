@@ -90,14 +90,16 @@ const chooseCourse = (cid, stuid) => {
   axios.get('http://127.0.0.1:8000/api/getManageState').then(response => {
     if(response.data === 0){
       message.warning("未开始选课!");
+      return;
     }
     else if(response.data === 2){
       message.warning("初选已结束!");
+      return;
     }
     else if(response.data === 4){
       message.warning("补选已结束!");
+      return;
     }
-    return;
   }).catch(function (error) {
     console.log(error);
   });
