@@ -67,6 +67,8 @@ const ChooseCourse = () =>  {
   <Column title="教师" dataIndex="tname" key="tname" />
   <Column title="星期" dataIndex="day" key="day" />
   <Column title="时间段" dataIndex="time" key="time" />
+  <Column title="总量" dataIndex="total" key="total" />
+  <Column title="已选人数" dataIndex="selected" key="selected" />
   <Column
     title="Action"
     key="action"
@@ -92,21 +94,26 @@ const chooseCourse = (cid, stuid) => {
     else if (response.data === "Time_Conflict"){
       message.warning("时间冲突");
     }
-    else{
-
+    else if (response.data === "No_remain"){
+      message.error("课程无余量");
+    }
+    else if (response.data === "Success"){
+      message.success("选课成功");
     }
   }).catch(function (error) {
+    console.log('http://127.0.0.1:8000/api/chooseCourse?stu='+stuid + '&cid='+cid);
     console.log(error);
   });
 };
 
 const delCourse = (cid, stuid) => {
   axios.get('http://127.0.0.1:8000/api/delCourse?stu='+stuid + '&cid='+cid).then(response => {
+    console.log(response.data);
     if(response.data !== 0){
       message.success("成功删除!");
     }
     else{
-      message.warning("已删除或课程信息不存在");
+      message.warning("已删除或未选择该课程");
 
     }
   }).catch(function (error) {
