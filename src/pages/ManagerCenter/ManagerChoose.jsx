@@ -53,6 +53,13 @@ export default class ManagerChoose extends React.Component {
 const onFinish = (values) => {
   axios.get('http://127.0.0.1:8000/api/managerChooseCourse?stu=' + values.stuid + '&cid=' + values.cid).then(response => {
     console.log('response: ', response.data);
+    if(response.data === 1){
+      message.success("选课成功");
+    }
+    else if (response.data === 0){
+      message.error("不能重复选择");
+
+    }
   }).catch(function (error) {
     console.log(error);
   });
