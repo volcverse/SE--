@@ -54,24 +54,22 @@ const SystemManagement = () => {
         <RangePicker showTime format="YYYY-MM-DD HH:mm:ss " />
       </Form.Item>      
 
-      <Button style={{ width: 100 }} type="primary" shape="round" size='large' onClick={() => {confirm(1);}}>
+      <Button style={{ left: '-10%' }} type="primary" shape="round" size='large' onClick={() => {confirm(1);}}>
         初选开始
       </Button>
 			
-			<br /><br /><br />
-      <Button style={{ width: 100 }} type="primary" shape="round" size='large' onClick={() => {confirm(2);}}>
+      <Button style={{ left: '10%' }} type="primary" shape="round" size='large' onClick={() => {confirm(2);}}>
             初选结束
       </Button>
     
 			<br /><br /><br />
 
-      <Button style={{ width: 100 }} type="primary" shape="round" size='large' onClick={() => {confirm(3);}}>
+      <Button style={{ left: '-10%' }} type="primary" shape="round" size='large' onClick={() => {confirm(3);}}>
             补选开始
       </Button>
 			
-			<br /><br /><br />
 
-        <Button style={{ width: 100 }} type="primary" shape="round" size='large' onClick={() => {confirm(4);}}>
+        <Button style={{ left: '10%'}} type="primary" shape="round" size='large' onClick={() => {confirm(4);}}>
               补选结束
         </Button>
         <br/>
