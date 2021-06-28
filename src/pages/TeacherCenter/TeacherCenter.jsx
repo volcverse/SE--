@@ -9,6 +9,7 @@ import MyClass from './MyClass'
 import FindCourse from './FindCourse'
 import ChangeTeaInfo from './ChangeTeaInfo'
 import TeaChangePSW from './TeaChangePSW'
+import TeacherCourseInfo from './TeacherCourseInfo'
 
 import CourseResource from './CourseResource'
 import AddHW from './AddHW'
@@ -148,6 +149,7 @@ class TeacherCenter extends React.Component {
                 <Route path="/TeacherCenter/Studentanalysis" component={Studentanalysis}></Route>
 
                 <Route path="/TeacherCenter/TimeTableDisplay" component={SiderDemo3}></Route>
+                <Route path="/TeacherCenter/TeacherCourseInfo" component={TeacherCourseInfo}></Route>
 
                 <Route exact path="/TeacherCenter/testcenter_tea" component={testipublish} />
                 <Route path="/TeacherCenter/testcenter_tea/testpublish" component={testipublish} />
