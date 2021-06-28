@@ -83,13 +83,73 @@ const week=[
   'Mon','Tue','Wedn','Thr','Fri','Sat','Sun',
 ]
 
-const StudentCourseInfo = () => {
-  const [data,setData] = useState(d);
+const StudentCourseInfo = (props) => {
+  const [data,setData] = useState([]);
+  console.log('props:', props.username);
+
   useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/api/searchcourseById/' + '3190100123').then(response => {
-      let tmpdata = data;
+    axios.get('http://127.0.0.1:8000/api/searchcourseById/' + props.username).then(response => {
+      console.log('response', 'http://127.0.0.1:8000/api/searchcourseById/' + props.username);
+  
+      let tmpdata = [
+        {
+          key:'1',
+          time:'8:00-10:00',
+          Mon:'',
+          Tue:'',
+          Wedn:'',
+          Thr:'',
+          Fri:'',
+          Sat:'',
+          Sun:'',
+        },
+        {
+          key:'2',
+          time:'10:15-12:15',
+          Mon:'',
+          Tue:'',
+          Wedn:'',
+          Thr:'',
+          Fri:'',
+          Sat:'',
+          Sun:'',
+        },
+        {
+          key:'3',
+          time:'14:00-16:00',
+          Mon:'',
+          Tue:'',
+          Wedn:'',
+          Thr:'',
+          Fri:'',
+          Sat:'',
+          Sun:'',
+        },
+        {
+          key:'4',
+          time:'16:15-18:00',
+          Mon:'',
+          Tue:'',
+          Wedn:'',
+          Thr:'',
+          Fri:'',
+          Sat:'',
+          Sun:'',
+        },
+        {
+          key:'5',
+          time:'19:00-21:00',
+          Mon:'',
+          Tue:'',
+          Wedn:'',
+          Thr:'',
+          Fri:'',
+          Sat:'',
+          Sun:'',
+        },
+      ];
       let t = response.data;
-      console.log('response: ', t);
+      console.log('response: ', t, "d", d);
       t.forEach(function(value,index,array){
         let tmpdate = week[value.day-1];
         console.log(tmpdate);
@@ -104,8 +164,10 @@ const StudentCourseInfo = () => {
           case 6:tmpdata[value.time-1].Sat = value.name;break;
           case 7:tmpdata[value.time-1].Sun = value.name;break;
         }
-        setData(tmpdata);
-      })
+      });
+      console.log(tmpdata);
+      setData(tmpdata);
+  
     }).catch(function (error) {
       console.log(error);
     });
@@ -114,14 +176,7 @@ const StudentCourseInfo = () => {
 
   return(
   <div>
-  <Descriptions title="学生信息">
-      <Descriptions.Item label="姓名">张三</Descriptions.Item>
-      <Descriptions.Item label="学号">319010xxxx</Descriptions.Item>
-      <Descriptions.Item label="身份证号">123456789XXXXX</Descriptions.Item>
-      <Descriptions.Item label="班级">软工1901</Descriptions.Item>
-      <Descriptions.Item label="总学分">xx</Descriptions.Item>
-      <Descriptions.Item label="GPA">5.0</Descriptions.Item>
-  </Descriptions>
+
   <br />
   <Table columns={columns} dataSource={data} scroll={{ x: 1300 }} />
   </div>

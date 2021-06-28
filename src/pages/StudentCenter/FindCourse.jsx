@@ -1,30 +1,205 @@
-import { 
-  Input,
-  Button,
-  Form,
-  Table,
-  Tag,
-  Space,
-
-} from 'antd';
-import { Drawer, List, Avatar, Divider, Col, Row } from 'antd';
-import axios from 'axios';
-import React,{ useState }from 'react';
-import { Select } from 'antd';
+import { Input, Button, Form } from 'antd';
+import React from 'react';
+import { Select, Table } from 'antd';
+import axios from 'axios'
 const { Option } = Select;
-  
-function selectQuery(recordID) {
-  return 0
+
+var thisM;
+var coursefind = 'name';
+
+function handleChange(value) {
+  coursefind = value;
 }
 
-function selectCourseReturn(recordID) {
-  var validation_code = selectQuery(recordID);
-  if(validation_code==0)  alert('选课成功')
-  else {
-    switch(validation_code){
-      case 1: alert('选课失败，失败原因1'); break;
-      case 2: alert('选课失败，失败原因2'); break;
-      default: alert('选课失败，未知原因');
+const transformFormData = (obj) => {
+  let formData = new FormData()
+
+  for (let k in obj) {
+    formData.append(k, obj[k])
+  }
+
+  return formData
+}
+
+const requestSendGet = () => {
+
+  data.length = 0;
+  var coursefindkey = document.getElementById("key");
+  var coursefindtype = coursefind;
+  const params = {
+    key: coursefindkey.value,
+    type: coursefindtype
+  }
+  axios
+    .get('http://127.0.0.1:8000/api/show/',
+      { params },
+      {
+        headers: { 'content-type': 'application/x-www-form-urlencoded' }
+      }
+    ).then(function (response) {
+      thisM.setState({
+        isLoaded: true
+      });
+      var datalist = [];
+      datalist = response.data.data;
+
+      console.log(datalist);
+      data.length = 0;
+      let temp = [...data];
+      for (const i in datalist) {
+        /*object.key=i;
+        object.id=datalist[i].id;
+        console.log(datalist[i].id);
+        object.course_name=datalist[i].course_name;
+        console.log(object);
+        data.push(object);*/
+        temp.push({
+          key: i,
+          id: datalist[i].ID,
+          course_name: datalist[i].name,
+          credit: datalist[i].credit,
+          description: datalist[i].description,
+          teacher_ID: datalist[i].teacher_ID,
+          stock: datalist[i].stock
+        })
+      }
+
+      thisM.setState({
+        courses: temp
+      })
+
+
+
+      console.log(data);
+    })
+    .catch(function (error) {
+      console.log(error);
+      thisM.setState({
+        isLoaded: false,
+        error: error
+      })
+    })
+}
+
+
+export default class FindCourse extends React.Component {
+
+
+  /* componentDidMount(){
+       const params = {
+           key: coursefindkey.value,
+           type: coursefindtype
+       }
+       const _this=this;    //先存一下this，以防使用箭头函数this会指向我们不希望它所指向的对象。
+       axios.get('https://localhost:8080',
+       {params}
+       )
+       .then(function (response) {
+         data=response.data
+         
+       })
+       .catch(function (error) {
+         console.log(error);
+       })
+     }*/
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      courses: [],
+      isLoaded: false,
+      username: "",
+      psw: "",
+      type: ""
+    }
+  }
+  componentDidMount() {
+    thisM = this;
+    var name = this.props.location.state.username;
+    var passw = this.props.location.state.psw;
+    var tp = this.props.location.state.type;
+    this.setState({
+      username: name,
+      psw: passw,
+      type: tp
+
+    })
+  }
+    
+
+  render() {
+      console.log(this.state.courses);
+      const formItemLayout = {
+        labelCol: {
+          xs: { span: 24 },
+          sm: { span: 4, offset: 4 },
+        },
+        wrapperCol: {
+          xs: { span: 24 },
+          sm: { span: 8 },
+        },
+      };
+      if(this.state.isLoaded)
+    {
+
+      return (
+
+        <>
+          <br /><br /><br /><br /><br />
+          <Form.Item label="搜索关键字" {...formItemLayout}>
+            <Input id="key"></Input>
+          </Form.Item>
+          <Form.Item {...formItemLayout} label="依据">
+            <Select id="coursefindtype" defaultValue="name" onChange={handleChange}>
+              <Option value="name">课程名</Option>
+              <Option value="ID">课程号</Option>
+              <Option value="teacher_ID">任课教师</Option>
+              <Option value="credit">学分</Option>
+            </Select>
+          </Form.Item>
+          <br />
+          <Button onClick={requestSendGet} style={{ width: 200 }} type="primary" shape="round" size='large'>
+            查找课程信息
+            </Button>
+          <br />
+          <br />
+          <br />  <Table columns={columns} dataSource={this.state.courses} /><br /><br /><br /><br /><br /><br /><br />
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <br />
+
+        </>
+      )
+    }
+    else {
+      return (
+
+        <>
+          <br /><br /><br /><br /><br />
+          <Form.Item label="搜索关键字" {...formItemLayout}>
+            <Input id="key"></Input>
+          </Form.Item>
+          <Form.Item {...formItemLayout} label="依据">
+            <Select id="coursefindtype" defaultValue="name" onChange={handleChange}>
+              <Option value="name">课程名</Option>
+              <Option value="ID">课程号</Option>
+              <Option value="teacher_ID">任课教师</Option>
+              <Option value="credit">学分</Option>
+            </Select>
+          </Form.Item>
+          <br />
+          <Button onClick={requestSendGet} style={{ width: 200 }} type="primary" shape="round" size='large'>
+            查找课程信息
+              </Button>
+          <br />
+
+
+          <br />
+          <br /><br /><br /><br /><br /><br /><br /><br />
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+          <br />
+
+        </>
+      )
     }
   }
 }
@@ -32,131 +207,30 @@ function selectCourseReturn(recordID) {
 
 
 
+const columns = [
+  {
+    tille: '课程序号',
+    dataIndex: 'id',
+  },
+  {
+    title: '课程名',
+    dataIndex: 'course_name',
+  },
+  {
+    title: '学分',
+    dataIndex: 'credit',
+  },
+  {
+    title: '描述',
+    dataIndex: 'description',
+  },
+  {
+    title: '教师序号',
+    dataIndex: 'teacher_ID',
+  }
 
-const FindCourse = () => {
-	
-    const [select, setSelect] = useState("name");
-    const [data, setData] = useState([]);
-    const columns = [
-      {
-        title: '课程名称',
-        dataIndex: 'cname',
-        key: 'cname',
-        render: text => <a >{text}</a>,
-      },
-	  {
-        title: '课程号',
-        dataIndex: 'cid',
-        key: 'cid',
-        
-      },
-	  {
-        title: '任课老师',
-        dataIndex: 'tname',
-        key: 'tname',
-      },
-     {
-        title: '课程简介',
-        dataIndex: 'description',
-        key: 'description',
-      },
-    ];
-    
-    const data1 = [
-      {
-        key: '1',
-        name: '中国近现代史纲要',
-        courseid: 32,
-        teacher: 'John',
-		intro:'课程简介',
-      },
-      {
-        key: '2',
-        name: '面向对象程序设计',
-        courseid: 12,
+]
+var data = [];
 
-        teacher: 'Steve Jobs',
-        intro:'课程简介',
-      },
-    ];
 
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 4, offset: 4 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-      },
-    };
-
-    const onFinish = (values) => {
-      // console.log("values",values);
-      if(select === "name"){
-        axios.get('http://127.0.0.1:8000/api/searchname?name=' + values.key).then(response => {
-          setData(response.data);
-          console.log('response: ', response.data);
-        }).catch(function (error) {
-          console.log(error);
-        });
-      }
-      else if(select === "cID"){
-        axios.get('http://127.0.0.1:8000/api/searchid?id=' + values.key).then(response => {
-          setData(response.data);
-          console.log('response: ', response.data);
-        }).catch(function (error) {
-          console.log(error);
-        });
-      }
-      else if(select === "teacher"){
-        axios.get('http://127.0.0.1:8000/api/searchteacher?t=' + values.key).then(response => {
-          setData(response.data);
-          console.log('response: ', response.data);
-        }).catch(function (error) {
-          console.log(error);
-        });
-      }
-
-    };
-
-    function handleChange(value) {
-      console.log(`selected ${value}`);
-      setSelect(value);
-    }
-
-    return (
-
-      <>
-        <br /><br /><br /><br /><br />
-        <Form onFinish={onFinish}>
-        <Form.Item label="搜索关键字" name="key" {...formItemLayout}>
-          <Input></Input>
-        </Form.Item>
-        <Form.Item {...formItemLayout} label="依据">
-          <Select defaultValue="name" onChange={handleChange}>
-            <Option value="name">课程名</Option>
-            <Option value="cID">课程号</Option>
-            <Option value="teacher">任课教师</Option>
-          </Select>
-        </Form.Item>
-        <br/>
-        <Button style={{ width: 200 }} type="primary" shape="round" size='large'  htmlType="submit">
-              查找课程信息
-          </Button>
-        </Form>
-        <br/>
-        <br /><br />
-
-        <Table columns={columns} dataSource={data} />
-
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <br />
-
-      </>
-    )
-}
-
-export default FindCourse;
 

@@ -45,10 +45,11 @@ function QuitCourseReturn(recordID) {
 
 
 
-const ChooseCourse = () =>  {
+const ChooseCourse = (props) =>  {
   const [tbdata, setTbdata] = useState([]);
+  console.log("props", props.username);
   useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/api/getPlanByID?id=' + '3190100123').then(response => {
+    axios.get('http://127.0.0.1:8000/api/getPlanByID?id=' + props.username).then(response => {
       setTbdata(response.data);
       console.log('response: ', response.data);
     }).catch(function (error) {
@@ -67,7 +68,7 @@ const ChooseCourse = () =>  {
   <Column title="教师" dataIndex="tname" key="tname" />
   <Column title="星期" dataIndex="day" key="day" />
   <Column title="时间段" dataIndex="time" key="time" />
-  <Column title="总量" dataIndex="total" key="total" />
+  <Column title="总量" dataIndex="stock" key="stock" />
   <Column title="已选人数" dataIndex="selected" key="selected" />
   <Column
     title="Action"
@@ -75,8 +76,9 @@ const ChooseCourse = () =>  {
     render={(text, record) => (
       <Space size="middle">
         {/* // TODO: implement real stuid */}
-          <a onClick={()=>{chooseCourse(record.ID, '3190100123')}}>选择</a>
-          <a onClick={()=>{delCourse(record.ID, '3190100123')}}>从课表中删除</a>
+          <a onClick={()=>{chooseCourse(record.ID, props.username)}}>选择</a>
+          {/* <a onClick={()=>{console.log(props)}}>选择</a> */}
+          <a onClick={()=>{delCourse(record.ID, props.username)}}>从课表中删除</a>
       </Space>
     )}
   />

@@ -35,7 +35,7 @@ function QuitCourseReturn(recordID) {
 }
 
 
-const Plan = () => {
+const Plan = (props) => {
   const [tbdata, setTbdata] = useState([]);
   useEffect(()=>{
     axios.get('http://127.0.0.1:8000/api/getDistinctCourse' ).then(response => {
@@ -62,8 +62,8 @@ const Plan = () => {
     key="action"
     render={(text, record) => (
       <Space size="middle">
-          <a onClick={()=>{chooseCourse(record.ID, '3190100123')}}>选择</a>
-          <a onClick={()=>{delCourse(record.ID, '3190100123')}}>从培养方案中删除</a>
+          <a onClick={()=>{chooseCourse(record.ID, props.username)}}>选择</a>
+          <a onClick={()=>{delCourse(record.ID, props.username)}}>从培养方案中删除</a>
       </Space>
     )}
   />
@@ -85,6 +85,7 @@ const chooseCourse = (cid, stuid) => {
 
     }
   }).catch(function (error) {
+    console.log('http://127.0.0.1:8000/api/choosePlan?stu='+stuid + '&cid='+cid);
     console.log(error);
   });
 };

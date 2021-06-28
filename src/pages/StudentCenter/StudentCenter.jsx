@@ -7,58 +7,63 @@ import MyApplication from './MyApplication'
 import FindCourse from './FindCourse'
 import ChangeStuInfo from './ChangeStuInfo'
 import StuChangePSW from './StuChangePSW'
-import Plan from './Plan'
+
+import AllCourse from './AllCourse'
+import CourseResource from './CourseResource'
+import Assignment from './Assignment'
+import Quiz from './Quiz'
+import HWanalysis from './HWanalysis'
+import PersonalResource from './PersonalResource'
+import Grade from './Grade'
+
 import ChooseCourse from './ChooseCourse'
 import StudentCourseInfo from './StudentCourseInfo'
+import Plan from './Plan'
+
+import testintroduce from './testcenter_stu/testpaper/testintroduce'
+import testquestions from './testcenter_stu/testpaper/testquestions'
+import testrank from './testcenter_stu/testpaper/testrank'
+import onlinetest from './testcenter_stu/onlinetest'
+
 import {
   BarChartOutlined,
   CloudOutlined,
   SmileOutlined,
-  TeamOutlined,
+  SolutionOutlined,
   UserOutlined,
   UploadOutlined,
   VideoCameraOutlined,
   HighlightOutlined,
-  BookOutlined,
   FileTextOutlined,
+  BookOutlined,
 } from '@ant-design/icons';
-
-const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-        var status = true;
-        var timer;
-        document.body.onmousedown = function () {
-                status = true;
-           }
-        document.body.onmouseup = function () {
-            countTime();
-        }
-
-        function countTime() {
-
-            setInterval(function() {
-                if (!status) {
-					status = true;
-					
-                    return window.location.href='http://localhost:3000/LoginInterface';
-                    
-                }
-            }, 1);
-
-            if(timer){
-                clearInterval(timer);
-            }
-
-            timer = setInterval(function () {
-                status = false;
-            }, 120000);
-        }
-        countTime();
-
+const { Header, Content, Footer, Sider } = Layout;
 
 class StudentCenter extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      username: "",
+      psw: "",
+      type: ""
+    };
+  }
+
+  componentWillMount() {
+
+    var name = this.props.location.state.username;
+    var passw = this.props.location.state.psw;
+    var tp = this.props.location.state.type;
+    this.setState({
+      username: name,
+      psw: passw,
+      type: tp
+    })
+  }
   render() {
+    console.log(this.state.psw);
     return (
       <Layout>
         <Sider
@@ -73,11 +78,13 @@ class StudentCenter extends React.Component {
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1" icon={<UserOutlined />}>
               个人中心
-              <Link to="/StudentCenter/StudentInfo"></Link>
+              <Link to={{ pathname: '/StudentCenter/StudentInfo', state: { username: this.state.username, psw: this.state.psw, type: this.state.type } }}></Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              课程资源
-          </Menu.Item>
+              所有课程
+              <Link to={{ pathname: '/StudentCenter/AllCourse', state: { username: this.state.username, psw: this.state.psw, type: this.state.type } }}></Link>
+            </Menu.Item>
+
             <SubMenu key="lesson" icon={<FileTextOutlined />} title="选课中心">
               <Menu.Item key="l0">培养方案
               <Link to="/StudentCenter/Plan"></Link>
@@ -89,26 +96,32 @@ class StudentCenter extends React.Component {
               <Link to="/StudentCenter/StudentCourseInfo"></Link>
               </Menu.Item>
             </SubMenu>
+
+            <Menu.Item key="3" icon={<UploadOutlined />}>
+              选课中心
+              <Link to={{ pathname: '/StudentCenter/ChooseCourse', props: { username: this.state.username, psw: this.state.psw, type: this.state.type } }}></Link>
+            </Menu.Item>
             <Menu.Item key="4" icon={<HighlightOutlined />}>
-              在线测验
-          </Menu.Item>
+              <Link to={{ pathname: '/StudentCenter/testcenter_stu', state: { username: this.state.username, psw: this.state.psw, type: this.state.type } }}>
+                在线测验
+            </Link>
+            </Menu.Item>
             <Menu.Item key="5" icon={<BarChartOutlined />}>
               成绩查询
-          </Menu.Item>
-            <Menu.Item key="6" icon={<BookOutlined />}>
-              作业提交
-          </Menu.Item>
-            <Menu.Item key="7" icon={<TeamOutlined />}>
-              相关申请
-              <Link to="/StudentCenter/SApplication"></Link>
+              <Link to={{ pathname: '/StudentCenter/Grade', state: { username: this.state.username, psw: this.state.psw, type: this.state.type } }}></Link>
             </Menu.Item>
             <Menu.Item key="8" icon={<CloudOutlined />}>
               课程搜索
-              <Link to="/StudentCenter/FindCourse"></Link>
+              <Link to={{ pathname: '/StudentCenter/FindCourse', state: { username: this.state.username, psw: this.state.psw, type: this.state.type } }}></Link>
             </Menu.Item>
             <Menu.Item key="9" icon={<SmileOutlined />}>
               个人资源
-          </Menu.Item>
+              <Link to={{ pathname: '/StudentCenter/PersonalResource', state: { username: this.state.username, psw: this.state.psw, type: this.state.type } }}></Link>
+            </Menu.Item>
+            <Menu.Item key="10" icon={<SolutionOutlined />}>
+              培养方案
+              <Link to={{ pathname: '/StudentCenter/Plan', state: { username: this.state.username, psw: this.state.psw, type: this.state.type } }}></Link>
+            </Menu.Item>
 
           </Menu>
         </Sider>
@@ -127,9 +140,28 @@ class StudentCenter extends React.Component {
                 <Route path="/StudentCenter/FindCourse" component={FindCourse}></Route>
                 <Route path="/StudentCenter/StuChangePSW" component={StuChangePSW}></Route>
                 <Route path="/StudentCenter/ChangeStuInfo" component={ChangeStuInfo}></Route>
-				<Route path="/StudentCenter/Plan" component={Plan}></Route>
-                <Route path="/StudentCenter/ChooseCourse" component={ChooseCourse}></Route>
-				<Route path="/StudentCenter/StudentCourseInfo" component={StudentCourseInfo}></Route>
+
+
+                <Route path="/StudentCenter/AllCourse" component={AllCourse}></Route>
+                <Route path="/StudentCenter/CourseResource" component={CourseResource}></Route>
+                <Route path="/StudentCenter/Assignment" component={Assignment}></Route>
+                <Route path="/StudentCenter/Quiz" component={Quiz}></Route>
+                <Route path="/StudentCenter/Grade" component={Grade}></Route>
+                <Route path="/StudentCenter/PersonalResource" component={PersonalResource}></Route>
+                <Route path="/StudentCenter/HWanalysis" component={HWanalysis}></Route>
+
+                <Route path="/StudentCenter/ChooseCourse"  > <ChooseCourse username={this.state.username}/></Route>
+                <Route path="/StudentCenter/StudentCourseInfo"><StudentCourseInfo username={this.state.username}/> </Route>
+                <Route path="/StudentCenter/Plan" ><Plan username={this.state.username}/></Route>
+
+                <Route exact path="/StudentCenter/testcenter_stu" component={onlinetest} />
+                <Route exact path="/StudentCenter/testcenter_stu/testpaper" component={testintroduce} />
+                <Route path="/StudentCenter/testcenter_stu/testpaper/testquestions" component={testquestions} />
+                <Route path="/StudentCenter/testcenter_stu/testpaper/testintroduce" component={testintroduce} />
+                <Route path="/StudentCenter/testcenter_stu/testpaper/testrank" component={testrank} />
+                
+      
+
                 <Redirect to="/StudentCenter/StudentInfo"></Redirect>
               </Switch>
             </div>
