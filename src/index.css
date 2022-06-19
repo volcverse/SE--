@@ -59,6 +59,7 @@ code {
   width: 100%;
 }
 
+
 .login .login-from {
   width: 80%;
   margin: 0 auto;
@@ -68,4 +69,14 @@ code {
 .login .login-tip {
   color: red;
   margin-bottom: 10px
+}
+
+.yes{
+  color: white;
+  background-color: green;
+}
+
+.no{
+  color:white;
+  background-color: red;
 }

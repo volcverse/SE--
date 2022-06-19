@@ -6,6 +6,7 @@ import {
   UserOutlined,
   FileTextOutlined,
   CloudOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 
 import ManagerInfo from './ManagerInfo'
@@ -18,13 +19,42 @@ import FindUser from './FindUser'
 import ChangeAdmInfo from './ChangeAdmInfo'
 import FindCourse from './FindCourse'
 import ApplicationDetail from './ApplicationDetail'
+import ManagerChoose from './ManagerChoose'
+
+import SiderDemo from "./Navi/Navi";
+import SiderDemo2 from "./Navi/Navi2";
+import SiderDemo3 from "./Navi/Navi3";
+import DrawerForm1 from "./Navi/Navi4";
+
+import SystemManagement from './SystemManagement'
 
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 class ManagerCenter extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      username: "",
+      psw: "",
+      type: ""
+    };
+  }
+
+  componentWillMount() {
+
+    var name = this.props.location.state.username;
+    var passw = this.props.location.state.psw;
+    var tp = this.props.location.state.type;
+    this.setState({
+      username: name,
+      psw: passw,
+      type: tp
+    })
+  }
   render() {
+    console.log(this.state);
     return (
       <Layout>
         <Sider
@@ -39,29 +69,45 @@ class ManagerCenter extends React.Component {
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['m1']}>
             <Menu.Item key="m1" icon={<UserOutlined />}>
               个人中心
-              <Link to="/ManagerCenter/ManagerInfo"></Link>
+              <Link to={{ pathname: '/ManagerCenter/ManagerInfo', state: { username: this.state.username, psw: this.state.psw, type:this.state.type } }}></Link>
             </Menu.Item>
             <SubMenu key="userinfo" icon={<TeamOutlined />} title="用户操作">
               <Menu.Item key="1">新增用户
-              <Link to="/ManagerCenter/AddUser"></Link>
+              <Link to={{ pathname: '/ManagerCenter/AddUser', state: { username: this.state.username, psw: this.state.psw, type:this.state.type } }}></Link>
               </Menu.Item>
               <Menu.Item key="2">删除用户
-              <Link to="/ManagerCenter/DeleteUser"></Link>
+              <Link to={{ pathname: '/ManagerCenter/DeleteUser', state: { username: this.state.username, psw: this.state.psw, type:this.state.type } }}></Link>
               </Menu.Item>
               <Menu.Item key="3">修改用户
-              <Link to="/ManagerCenter/ChangeUser"></Link>
+              <Link to={{ pathname: '/ManagerCenter/ChangeUser', state: { username: this.state.username, psw: this.state.psw, type:this.state.type } }}></Link>
               </Menu.Item>
               <Menu.Item key="4">查找用户
-              <Link to="/ManagerCenter/FindUser"></Link>
+              <Link to={{ pathname: '/ManagerCenter/FindUser', state: { username: this.state.username, psw: this.state.psw, type:this.state.type } }}></Link>
               </Menu.Item>
             </SubMenu>
-            <Menu.Item key="m4" icon={<FileTextOutlined />}>
-              申请处理
-              <Link to="/ManagerCenter/Application"></Link>
+            <Menu.Item key="c1" icon={<FileTextOutlined />}>
+              教室操作
+              <Link to={{ pathname: '/ManagerCenter/ClassroomInfo', state: { username: this.state.username, psw: this.state.psw, type:this.state.type } }}></Link>
+            </Menu.Item>
+            <Menu.Item key="c2" icon={<FileTextOutlined />}>
+              排课
+              <Link to={{ pathname: '/ManagerCenter/ArrangeCourse', state: { username: this.state.username, psw: this.state.psw } }}></Link>
+            </Menu.Item>
+            <Menu.Item key="c3" icon={<FileTextOutlined />}>
+              查询课表
+              <Link to={{ pathname: '/ManagerCenter/TimeTableDisplay', state: { username: this.state.username, psw: this.state.psw } }}></Link>
+            </Menu.Item>
+            <Menu.Item key="m5" icon={<CloudOutlined />}>
+              手动选课
+              <Link to="/ManagerCenter/ManagerChoose"></Link>
             </Menu.Item>
             <Menu.Item key="5" icon={<CloudOutlined />}>
               课程搜索
-              <Link to="/ManagerCenter/FindCourse"></Link>
+              <Link to={{ pathname: '/ManagerCenter/FindCourse', state: { username: this.state.username, psw: this.state.psw } }}></Link>
+            </Menu.Item>
+            <Menu.Item key="6" icon={<SettingOutlined />}>
+              系统管理
+              <Link to={{ pathname: '/ManagerCenter/SystemManagement', state: { username: this.state.username, psw: this.state.psw } }}></Link>
             </Menu.Item>
 
           </Menu>
@@ -85,6 +131,16 @@ class ManagerCenter extends React.Component {
                 <Route path="/ManagerCenter/AdmChangePSW" component={AdmChangePSW}></Route>
                 <Route path="/ManagerCenter/ChangeAdmInfo" component={ChangeAdmInfo}></Route>
                 <Route path="/ManagerCenter/FindCourse" component={FindCourse}></Route>
+
+                <Route path="/ManagerCenter/ClassroomInfo/DrawerForm1" component={DrawerForm1}></Route>
+                
+                <Route path="/ManagerCenter/ManagerChoose" component={ManagerChoose}></Route>
+                <Route path="/ManagerCenter/ClassroomInfo" component={SiderDemo}></Route>
+                <Route path="/ManagerCenter/ArrangeCourse" component={SiderDemo2}></Route>
+                <Route path="/ManagerCenter/TimeTableDisplay" component={SiderDemo3}></Route>
+                
+                <Route path="/ManagerCenter/SystemManagement" component={SystemManagement}></Route>
+                
                 <Redirect to="/ManagerCenter/ManagerInfo"></Redirect>
               </Switch>
             </div>

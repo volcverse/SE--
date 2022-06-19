@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Table, Tag } from 'antd';
-
+import axios from 'axios'
 
 const columns = [
     {
@@ -49,6 +49,23 @@ const data = [
 ];
 
 export default class MyApplication extends Component {
+    constructor(){
+        super();
+        this.state={
+            username:"",
+            psw:""
+        };
+      }
+    
+      componentWillMount(){
+        var name=this.props.location.state.username;
+        var passw=this.props.location.state.psw;
+        console.log(name);
+        this.setState({
+          username:name,
+          psw:passw
+        })
+      }
     render() {
         return (
             <div>

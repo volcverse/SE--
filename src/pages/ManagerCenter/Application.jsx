@@ -19,7 +19,25 @@ const data = [
 ];
 
 export default class Application extends React.Component {
+  constructor(){
+    super();
+    this.state={
+        username:"",
+        psw:""
+    };
+  }
+
+  componentWillMount(){
+    var name=this.props.location.state.username;
+    var passw=this.props.location.state.psw;
+    console.log(name);
+    this.setState({
+      username:name,
+      psw:passw
+    })
+  }
   render() {
+    console.log(this.state.username);
     return (
       <div>
         <List
@@ -34,7 +52,7 @@ export default class Application extends React.Component {
                 title={item.title}
                 description="XXXXXXX"
               />
-              <Link to="/ManagerCenter/ApplicationDetail">
+              <Link to={{pathname: '/ManagerCenter/ApplicationDetail',state:{username:this.state.username, psw:this.state.psw}}}>
                 <Button>详情
                 </Button>
               </Link>

@@ -2,7 +2,26 @@ import React, { Component } from 'react'
 import { Descriptions, Button } from 'antd'
 
 export default class ApplicationDetail extends Component {
+    constructor(){
+        super();
+        this.state={
+            username:"",
+            psw:""
+        };
+      }
+    
+      componentWillMount(){
+        var name=this.props.location.state.username;
+        var passw=this.props.location.state.psw;
+        console.log(name);
+        this.setState({
+          username:name,
+          psw:passw
+        })
+      }
+      
     render() {
+        console.log(this.state.username);
         return (
             <div>
                 <Descriptions title="申请" bordered>

@@ -34,6 +34,9 @@ const columns = [
                     <a>编辑信息</a>
                 </Link>
                 <a>资源管理</a>
+				<Link to="/TeacherCenter/TeacherCourseInfo">
+                <a>结果查看</a>
+                </Link>
                 <Popconfirm
                     title="您确定要删除此课程吗"
                     onConfirm={confirm}

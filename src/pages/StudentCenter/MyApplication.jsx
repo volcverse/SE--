@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Table, Tag } from 'antd';
+import { SiderContext } from 'antd/lib/layout/Sider';
+import axios from 'axios'
 
 
 const columns = [
@@ -25,8 +27,8 @@ const columns = [
                     if (tag === '驳回') {
                         color = 'volcano';
                     }
-                    if(tag==='待处理'){
-                        color='gray'
+                    if (tag === '待处理') {
+                        color = 'gray'
                     }
                     return (
                         <Tag color={color} key={tag}>
@@ -61,6 +63,25 @@ const data = [
 ];
 
 export default class MyApplication extends Component {
+    constructor() {
+        super();
+        this.state = {
+            username: "",
+            psw: "",
+            type: ""
+        };
+    }
+
+    componentWillMount() {
+        var name = this.props.location.state.username;
+        var passw = this.props.location.state.psw;
+        var tp = this.props.location.state.type;
+        this.setState({
+            username: name,
+            psw: passw,
+            type: tp
+        })
+    }
     render() {
         return (
             <div>
@@ -73,3 +94,19 @@ export default class MyApplication extends Component {
     }
 }
 
+const requestSendGet = () => {
+    var Sid;
+    const params = {
+        id: SiderContext
+    }
+
+    axios
+        .get('https://localhost:8080',
+            { params },
+            {
+                headers: { 'content-type': 'application/x-www-form-urlencoded' }
+            }
+        ).then((response) => {
+            // get response
+        })
+}
